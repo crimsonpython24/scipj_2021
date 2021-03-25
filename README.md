@@ -38,4 +38,20 @@ Types of Algorithms/Implementations | Selection Sort | Merge Sort | Insertion So
  - [ ] Stats like the number of comparisons storage operations will be recorded for analyses during execution
 
 
+## Generic Sort Algorithms
+Language | Function Name | Algorithm Name | Algorithm Details | Ref
+-------- | -------- | -------- | -------- | --------
+C | `qsort` | Quick Sort | Sorting algorithm with a lot of pivots | [Link](https://stackoverflow.com/questions/3893937/sorting-an-array-in-c)
+C++ | `std::sort` | Intro Sort | Mix of quick, heap, and insertion sort | [Link](https://www.geeksforgeeks.org/internal-details-of-stdsort-in-c/)
+Python | `sort()` | Tim Sort[2] | Mix of merge and insertion sort (named after its inventor, Tim Peters) | [Link](https://stackoverflow.com/questions/10948920/what-algorithm-does-pythons-sorted-use)
+Java | `Arrays.sort(T[])` | Tim Sort | Mix of merge and insertion sort | [Link](https://stackoverflow.com/questions/14322585/collections-sort-implementation/14322664)
+Javascript | `Array.prototype.sort` | Tim Sort | See above | [Link](https://medium.com/tds-note/how-array-prototype-sort-works-in-v8-d69ff0a7b663)
+Go | (import) `src/sort/sort.go` | Various | A collection of algorithms in a library, import as needed | [Link](https://golang.org/src/sort/sort.go)
+Rust | `[T]::sort` | Tim Sort | See above | [Link](https://stackoverflow.com/questions/54852554/what-sorting-algorithm-does-rusts-built-in-sort-use)
+
+
+[2] The Python version of Tim Sort is written and optimized in C
+
+
+
 ***Implementations are all open-source!*** **☭ <- our_data**
