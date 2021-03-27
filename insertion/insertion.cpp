@@ -3,10 +3,11 @@
 #include <sstream>
 #include <vector>
 #include <chrono>
+#include "insertion.h"
 using namespace std;
 using namespace std::chrono;
 
-int main() {
+void Insertion::insertion() {
 	string fn;
 	cout << "Input file name: "; cin >> fn; cout << endl;
 	ifstream infile(fn);
@@ -45,6 +46,10 @@ int main() {
 
 	auto dur = duration_cast<microseconds>(end-start);
 	cout << "time taken " << dur.count() << "ms" << endl;
+}
 
+int main() {
+	Insertion ins;
+	ins.insertion();
 	return 0;
 }
