@@ -7,9 +7,13 @@
 using namespace std;
 using namespace std::chrono;
 
-void Insertion::insertion() {
+void Insertion::insertion(string dirc) {
 	string fn;
-	cout << "Input file name: "; cin >> fn; cout << endl;
+	if (dirc.compare("") == 0) {
+		cout << ">>> Input file name: "; cin >> fn; cout << endl;
+	}
+	else
+		fn = dirc;
 	ifstream infile(fn);
 	string line;
 	vector<int> ints;
@@ -45,11 +49,14 @@ void Insertion::insertion() {
 	cout << endl;
 
 	auto dur = duration_cast<microseconds>(end-start);
-	cout << "time taken " << dur.count() << "ms" << endl;
+	cout << ">>> Time taken " << dur.count() << "ms" << endl;
 }
 
-int main() {
-	Insertion ins;
-	ins.insertion();
-	return 0;
-}
+
+// FOR TESTING ONLY
+
+// int main() {
+// 	Insertion ins;
+// 	ins.insertion("");
+// 	return 0;
+// }

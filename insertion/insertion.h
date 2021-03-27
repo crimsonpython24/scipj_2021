@@ -8,12 +8,13 @@
 #include <sstream>
 #include <vector>
 #include <chrono>
+#include <string>
 using namespace std;
 using namespace std::chrono;
 
 class Insertion {
     public:
-        void insertion();
+        void insertion(string);
 };
 
 #endif 
