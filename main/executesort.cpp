@@ -35,6 +35,18 @@ int main() {
 	while (cmd != "quit") {
 		if (cmd.compare("quit") == 0)
 			break;
+		else if (cmd.compare("updatenum") == 0) {
+			cout << ">>> CURRENT TOOL updatenum;" << endl;
+			update_nums();
+		}
+		else if (cmd.compare("help") == 0) {
+			cout << "------- CURRENT TOOL help -------\n" << endl;
+			cout << ">>> Type `help` for help (you're here)" << endl;
+			cout << ">>> Type `quit` to quit the program" << endl;
+			cout << ">>> Available list of algorithm commands: " << endl;
+			cout << "    insertion" << endl;
+			cout << "\n------- EXIT help -------" << endl;
+		}
 		else if (cmd.compare("insertion") == 0) {
 			while (check_yes(ind)) {
 				cout << "------- CURRENT TOOL insertion -------" << endl;
@@ -61,18 +73,6 @@ int main() {
 				cout << "Continue? (y/n) ";
 				cin >> ind;
 			}
-		}
-		else if (cmd.compare("updatenum") == 0) {
-			cout << ">>> CURRENT TOOL updatenum;" << endl;
-			update_nums();
-		}
-		else if (cmd.compare("help") == 0) {
-			cout << "------- CURRENT TOOL help -------\n" << endl;
-			cout << ">>> Type `help` for help (you're here)" << endl;
-			cout << ">>> Type `quit` to quit the program" << endl;
-			cout << ">>> Available list of algorithm commands: " << endl;
-			cout << "    insertion" << endl;
-			cout << "\n------- EXIT help -------" << endl;
 		}
 		cout << ">>> Input command [quit, help, *]: ";
 		cin >> cmd;

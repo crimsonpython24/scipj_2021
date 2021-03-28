@@ -46,8 +46,8 @@ void Writefile::writefiledftdir(string filename) {
 
 // FOR TESTING ONLY
 
-// int main() {
-// 	Writefile wrf;
-// 	wrf.writefile();
-//	return 0;
-// }	
+int main() {
+	Writefile wrf;
+	wrf.writefile();
+	return 0;
+}	
