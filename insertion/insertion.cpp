@@ -46,7 +46,7 @@ void Insertion::insertion(string dirc, string out_dirc, int multi, int cnt) {
 	if (multi != 1)
 		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt+1 << "]" << endl;
 	else
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)\n" << endl;
+		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;
 }
 
 

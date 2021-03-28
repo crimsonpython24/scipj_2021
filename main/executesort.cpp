@@ -131,7 +131,7 @@ int handle_sort_algo(string algoname, string ind, bool check) {
 		cout << ">>> Continue with same algorithm? (y/n) ";
 		cin >> ind;
 		multicnt = 1;
-		multirand = true;
+		multirand = false;
 		cout << endl;
 	}
 	return cnt;
