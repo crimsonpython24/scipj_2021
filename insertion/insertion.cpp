@@ -31,6 +31,7 @@ void Insertion::insertion(string dirc) {
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
+	cout << ">>> running..." << endl;
 	int i, key, j;
 	for (i = 1; i < n; ++i) {
 		key = nums[i];
@@ -44,9 +45,9 @@ void Insertion::insertion(string dirc) {
 
 	auto end = high_resolution_clock::now(); // end
 
-	for (int m = 0; m < n; ++m)
-		cout << nums[m] << " "; // debug
-	cout << endl;
+	// for (int m = 0; m < n; ++m)
+	// 	cout << nums[m] << " "; // debug
+	// cout << endl;
 
 	auto dur = duration_cast<microseconds>(end-start);
 	cout << ">>> Time taken " << dur.count() << "ms" << endl;

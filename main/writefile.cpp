@@ -8,7 +8,11 @@ using namespace std;
 #define prl cout<<endl
 
 
-void Writefile::write(string filename, int mode, int cnt) {
+void Writefile::write(string filename) {
+	int mode, cnt;
+	cout << ">>> Choose 1 for linear, 2 for random: "; cin >> mode;
+	cout << ">>> Input number of numbers: "; cin >> cnt;
+
 	ofstream file;
 	file.open(filename);
 
@@ -32,18 +36,12 @@ void Writefile::write(string filename, int mode, int cnt) {
 
 void Writefile::writefile() {
 	string filename;
-	int mode, cnt;
 	cout << ">>> Input file name: "; cin >> filename;
-	cout << ">>> Choose 1 for linear, 2 for random: "; cin >> mode;
-	cout << ">>> Input number of numbers: "; cin >> cnt;
-	write(filename, mode, cnt);
+	write(filename);
 }
 
 void Writefile::writefiledftdir(string filename) {
-	int mode, cnt;
-	cout << ">>> Choose 1 for linear, 2 for random: "; cin >> mode;
-	cout << ">>> Input number of numbers: "; cin >> cnt;
-	write(filename, mode, cnt);
+	write(filename);
 }
 
 // FOR TESTING ONLY

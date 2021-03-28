@@ -15,7 +15,7 @@ class Writefile {
         void writefile();
         void writefiledftdir(string);
     private:
-        void write(string, int, int);
+        void write(string);
 };
 
 #endif 
