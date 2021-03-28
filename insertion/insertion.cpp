@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "windows.h"
+#include "psapi.h"
 #include <chrono>
 #include <map>
 #include "insertion.h"
@@ -45,7 +47,10 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 	else
 		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;	
 
-	map<string, long> m1 = {{"mem", 0}, {"time", dur.count() }, {"items", n}};
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+	SIZE_T physMemUsedByMe = pmc.WorkingSetSize;
+
+	map<string, long> m1 = {{"mem", physMemUsedByMe}, {"time", dur.count() }, {"items", n}};
 	return m1;
 }
 

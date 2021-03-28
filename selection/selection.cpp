@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 #include <chrono>
+#include "windows.h"
+#include "psapi.h"
 #include "selection.h"
 #include "../main/readfile.h"
 #include "../main/writefile.h"
@@ -44,7 +46,11 @@ map<string, long> Selection::selection(string dirc, string out_dirc, int multi, 
 	else
 		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;
 	
-	map<string, long> m1 = {{"mem", 0}, {"time", dur.count() }, {"items", n}};
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+	SIZE_T physMemUsedByMe = pmc.WorkingSetSize;
+
+	map<string, long> m1 = {{"mem", physMemUsedByMe}, {"time", dur.count() }, {"items", n}};
+
 	return m1;
 }
 

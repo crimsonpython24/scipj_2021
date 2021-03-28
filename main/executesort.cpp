@@ -94,11 +94,11 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		if (multicnt != 1)
 			cout << "\n>>> Repeating process for " << multicnt << " times..." << endl;
 		if (empty_json) {
-			file << "\t\"" << json_count << "\": [" << endl;
+			file << "\t\"" << json_count << "\": \n\t[" << endl;
 			empty_json = false;
 		}
 		else
-			file << "\t,\"" << json_count << "\": [" << endl;
+			file << "\t,\"" << json_count << "\": \n\t[" << endl;
 		++json_count;
 
 		if (check_yes(temp) || multirand == true) {
