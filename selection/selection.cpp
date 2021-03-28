@@ -9,7 +9,7 @@
 using namespace std;
 using namespace std::chrono;
 
-void Selection::selection(string dirc, string out_dirc, int multi, int cnt) {
+map<string, long> Selection::selection(string dirc, string out_dirc, int multi, int cnt) {
 	Readfile rdf;
 	Writefile wrf;
     vector<int> vec = rdf.readfile(dirc);
@@ -36,12 +36,16 @@ void Selection::selection(string dirc, string out_dirc, int multi, int cnt) {
     }
 	auto end = high_resolution_clock::now(); // end
 
-	wrf.writeresult(out_dirc, nums, n);
 	auto dur = duration_cast<microseconds>(end-start);
+	
+	wrf.writeresult(out_dirc, nums, n);
 	if (multi != 1)
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt << "]\n" << endl;
+		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt << "]" << endl;
 	else
 		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;
+	
+	map<string, long> m1 = {{"mem", 0}, {"time", dur.count() }, {"items", n}};
+	return m1;
 }
 
 

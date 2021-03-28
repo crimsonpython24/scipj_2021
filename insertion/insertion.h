@@ -14,7 +14,7 @@ using namespace std::chrono;
 
 class Insertion {
     public:
-        map<string, long>  insertion(string, string, int, int);
+        map<string, long> insertion(string, string, int, int);
 };
 
 #endif 

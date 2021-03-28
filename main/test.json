@@ -1,34 +1,44 @@
 {
 	"0": [
-		{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
+		{"mode": "multi", "algorithm": "selection"},
+		[
+			{"items":30027, "mem":0, "time":813207}
+			,{"items":30027, "mem":0, "time":788621}
+			,{"items":30027, "mem":0, "time":800816}
+			,{"items":30027, "mem":0, "time":794548}
+			,{"items":30027, "mem":0, "time":831204}
+			,{"items":30027, "mem":0, "time":805845}
+			,{"items":30027, "mem":0, "time":798223}
+			,{"items":30027, "mem":0, "time":784403}
+			,{"items":30027, "mem":0, "time":818563}
+			,{"items":30027, "mem":0, "time":794028}
+		]
 	]
 	,"1": [
-		{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
+		{"mode": "multi", "algorithm": "insertion"},
+		[
+			{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+			,{"items":1, "mem":0, "time":0}
+		]
 	]
 	,"2": [
-		{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
-		,{"items":1, "mem":0, "time":0}
+		{"mode": "single", "algorithm": "insertion"},
+		[
+			{"items":1, "mem":0, "time":0}
+		]
 	]
 	,"3": [
-		{"items":1, "mem":0, "time":0}
+		{"mode": "single", "algorithm": "selection"},
+		[
+			{"items":30027, "mem":0, "time":750275}
+		]
 	]
 }

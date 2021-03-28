@@ -9,12 +9,13 @@
 #include <vector>
 #include <chrono>
 #include <string>
+#include <map>
 using namespace std;
 using namespace std::chrono;
 
 class Selection {
     public:
-        void selection(string, string, int, int);
+        map<string, long> selection(string, string, int, int);
 };
 
 #endif 

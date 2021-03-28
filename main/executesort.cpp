@@ -5,23 +5,28 @@
 #include <stdio.h>
 #include <map>
 #include "../insertion/insertion.h"
+#include "../selection/selection.h"
 #include "writefile.h"
 #include "judge.h"
 using namespace std;
 
 #define prl cout<<endl
 
-map<string, long> choose_algo_nofilename(string algoname, int multi, int cnt, Insertion& ins) {
+map<string, long> choose_algo_nofilename(string algoname, int multi, int cnt, Insertion& ins, Selection& slc) {
 	map<string, long> m1;
 	if (algoname.compare("insertion") == 0)
 		m1 = ins.insertion("", "..\\insertion\\out.txt", multi, cnt);
+	else if (algoname.compare("selection") == 0)
+		m1 = slc.selection("", "..\\selection\\out.txt", multi, cnt);
 	return m1;
 }
 
-map<string, long> choose_algo(string algoname, int multi, int cnt, Insertion& ins) {
+map<string, long> choose_algo(string algoname, int multi, int cnt, Insertion& ins, Selection& slc) {
 	map<string, long> m1;
 	if (algoname.compare("insertion") == 0)
 		m1 = ins.insertion("..\\insertion\\temp.txt", "..\\insertion\\out.txt", multi, cnt);
+	else if (algoname.compare("selection") == 0)
+		m1 = slc.selection("..\\selection\\temp.txt", "..\\selection\\out.txt", multi, cnt);	
 	return m1;
 }
 
@@ -48,9 +53,9 @@ string map_to_string(map<string, long> m1) {
 
 void json_parse_child(int k, ofstream& file, map<string, long> m1) {
 	if (k != true)
-		file << "\t\t,{" << map_to_string(m1) << "}" << endl;
+		file << "\t\t\t,{" << map_to_string(m1) << "}" << endl;
 	else
-		file << "\t\t{" << map_to_string(m1) << "}" << endl;
+		file << "\t\t\t{" << map_to_string(m1) << "}" << endl;
 }
 
 int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, ofstream& file, int& json_count) {
@@ -59,6 +64,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 	bool multirand = false;
 	map<string, long> m1;
 	Insertion ins;
+	Selection slc;
 	Writefile wrf;
 	Judge jdg;
 
@@ -101,28 +107,34 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			cin >> temp;
 
 			if (check_yes(temp)) {
+				file << "\t\t{\"mode\": \"single\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
 				for (int i = 1; i <= multicnt; ++i) {
 					wrf.writefiledefaultdir(dir_name);
 					printf("------- CONTINUE TO %s -------\n", algoname.c_str());
-					m1 = choose_algo(algoname, multicnt, i, ins);
+					m1 = choose_algo(algoname, multicnt, i, ins, slc);
 					json_parse_child(i, file, m1);
 				}
 			} else {
 				wrf.writefile();
+				file << "\t\t{\"mode\": \"multi\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
 				for (int i = 1; i <= multicnt; ++i) {
-					m1 = choose_algo_nofilename(algoname, multicnt, i, ins);
+					m1 = choose_algo_nofilename(algoname, multicnt, i, ins, slc);
 					json_parse_child(i, file, m1);
 				}
 			}
-			file << "\t]" << endl;
+			file << "\t\t]\n\t]" << endl;
 		}
 		else {
-			printf(">>> Using \"..\\%s\\temp.txt\"", algoname.c_str());
+			printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str());
+			if (multicnt == 1)
+				file << "\t\t{\"mode\": \"single\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
+			else
+				file << "\t\t{\"mode\": \"multi\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
 			for (int i = 1; i <= multicnt; ++i) {
-				m1 = choose_algo(algoname, multicnt, i, ins);
+				m1 = choose_algo(algoname, multicnt, i, ins, slc);
 				json_parse_child(i, file, m1);
 			}
-			file << "\t]" << endl; prl;
+			file << "\t\t]\n\t]" << endl; prl;
 		}
 
 		if (check) {
@@ -145,7 +157,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 
 int main() {
 	string parent, child, cmd = "", temp, ind = "yes";
-	vector<string> avbcommands = {"insertion"}, usedcommands = {};
+	vector<string> avbcommands = {"insertion", "selection"}, usedcommands = {};
 	Writefile wrf;
 	bool check = false, empty_json = true;	
 	int json_count = 0;

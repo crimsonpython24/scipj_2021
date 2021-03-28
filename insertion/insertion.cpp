@@ -37,10 +37,6 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 
 	auto end = high_resolution_clock::now(); // end
 
-	// for (int m = 0; m < n; ++m)
-	// 	cout << nums[m] << " "; // debug
-	// cout << endl;
-
 	auto dur = duration_cast<microseconds>(end-start);
 	
 	wrf.writeresult(out_dirc, nums, n);
