@@ -39,7 +39,7 @@ void Selection::selection(string dirc, string out_dirc, int multi, int cnt) {
 	wrf.writeresult(out_dirc, nums, n);
 	auto dur = duration_cast<microseconds>(end-start);
 	if (multi != 1)
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt+1 << "]\n" << endl;
+		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt << "]\n" << endl;
 	else
 		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;
 }
