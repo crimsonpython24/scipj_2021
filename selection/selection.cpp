@@ -9,7 +9,7 @@
 using namespace std;
 using namespace std::chrono;
 
-void Selection::selection(string dirc, string out_dirc) {
+void Selection::selection(string dirc, string out_dirc, int multi, int cnt) {
 	Readfile rdf;
 	Writefile wrf;
     vector<int> vec = rdf.readfile(dirc);
@@ -18,7 +18,8 @@ void Selection::selection(string dirc, string out_dirc) {
 	copy(vec.begin(), vec.end(), nums);
 	int n = sizeof(nums)/sizeof(nums[0]);
 
-	cout << "\n>>> running..." << endl;
+	if (multi == 1)
+		cout << "\n>>> running..." << endl;
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
@@ -37,7 +38,10 @@ void Selection::selection(string dirc, string out_dirc) {
 
 	wrf.writeresult(out_dirc, nums, n);
 	auto dur = duration_cast<microseconds>(end-start);
-	cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg)\n" << endl;
+	if (multi != 1)
+		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt+1 << "]\n" << endl;
+	else
+		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)\n" << endl;
 }
 
 

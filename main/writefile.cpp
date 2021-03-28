@@ -2,6 +2,7 @@
 #include <fstream>
 #include <random>
 #include <string>
+#include <stdlib.h>
 #include "writefile.h"
 using namespace std;
 
@@ -9,7 +10,16 @@ using namespace std;
 
 void Writefile::write(string filename) {
 	int mode, cnt;
-	cout << ">>> Choose 1 for linear, 2 for random: "; cin >> mode;
+	string temp;
+	cout << ">>> Choose 1 for linear, 2 for random (q/quit to quit): "; cin >> temp;
+
+	if (temp.compare("quit") == 0|| temp.compare("q") == 0) {
+		exit(0);
+		cout << "------ EXIT writefile ------\n" << endl;
+	}
+	else
+		mode = stoi(temp);
+
 	cout << ">>> Input number of numbers: "; cin >> cnt;
 
 	ofstream file;

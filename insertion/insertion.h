@@ -14,7 +14,7 @@ using namespace std::chrono;
 
 class Insertion {
     public:
-        void insertion(string, string);
+        void insertion(string, string, int, int);
 };
 
 #endif 

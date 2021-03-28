@@ -9,23 +9,23 @@
 #include "judge.h"
 using namespace std;
 
-void choose_algo_nofilename(string algoname) {
+void choose_algo_nofilename(string algoname, int multi, int cnt) {
 	Insertion ins;
 	Selection slc;
 	if (algoname.compare("insertion") == 0)
-		ins.insertion("", "..\\insertion\\out.txt");
+		ins.insertion("", "..\\insertion\\out.txt", multi, cnt);
 	else if (algoname.compare("selection") == 0)
-		slc.selection("", "..\\selection\\out.txt");
+		slc.selection("", "..\\selection\\out.txt", multi, cnt);
 	return;
 }
 
-void choose_algo(string algoname) {
+void choose_algo(string algoname, int multi, int cnt) {
 	Insertion ins;
 	Selection slc;
 	if (algoname.compare("insertion") == 0)
-		ins.insertion("..\\insertion\\temp.txt", "..\\insertion\\out.txt");
+		ins.insertion("..\\insertion\\temp.txt", "..\\insertion\\out.txt", multi, cnt);
 	else if (algoname.compare("selection") == 0)
-		slc.selection("..\\selection\\temp.txt", "..\\selection\\out.txt");	
+		slc.selection("..\\selection\\temp.txt", "..\\selection\\out.txt", multi, cnt);	
 }
 
 void update_nums_defaultdir(string dirc) {
@@ -56,8 +56,9 @@ bool in_array(const string &value, const vector<std::string> &array) {
 }
 
 int handle_sort_algo(string algoname, string ind, bool check) {
-	string temp, dir_name, out_name;
-	int v_result, cnt = 0;
+	string temp, temp2, dir_name, out_name;
+	int v_result, cnt = 0, multicnt = 1;
+	bool multirand = false;
 	Insertion ins;
 	Selection slc;
 	Judge jdg;
@@ -66,26 +67,56 @@ int handle_sort_algo(string algoname, string ind, bool check) {
 		dir_name = "..\\" + algoname + "\\temp.txt";
 		out_name = "..\\" + algoname + "\\out.txt";
 		printf("\n------- CURRENT TOOL %s -------", algoname.c_str());
-		cout << "\n>>> Change sort test file? (y/N) ";
-		cin >> temp; cout << endl;
+		cout << "\n>>> Create multirun process? (y/N) ";
+
+
+		cin >> temp;
 		if (check_yes(temp)) {
+			cout << ">>> How many times to run? (positive whole number) ";
+			cin >> multicnt;
+			cout << ">>> Change list each time? (y/N) ";
+			cin >> temp2;
+			if (check_yes(temp2))
+				multirand = true;
+			cout << endl;
+		}
+		temp = "";
+
+		if (multicnt == 1) {
+			cout << "\n>>> Change sort test file? (y/N) ";
+			cin >> temp; cout << endl;
+		}
+		if (check_yes(temp) || multirand == true) {
 			cout << "------- CURRENT TOOL updatenum -------" << endl;
-			printf(">>> Use default save location (..\\%s\\temp.txt)? (y/n) ", algoname.c_str());
+			printf(">>> Use default save location (..\\%s\\temp.txt) [n=edit another file]? (y/n) ", algoname.c_str());
 			cin >> temp;
 			if (check_yes(temp)) {
-				update_nums_defaultdir(dir_name);
-				printf("------- RETURN TO %s -------", algoname.c_str());
-				choose_algo(algoname);
+				if (multicnt != 1)
+					cout << "\n>>> Repeating process for " << multicnt << " times..." << endl;
+				for (int i = 0; i < multicnt; ++i) {
+					update_nums_defaultdir(dir_name);
+					printf("------- CONTINUE TO %s -------\n", algoname.c_str());
+					choose_algo(algoname, multicnt, i);
+				}
 			} else {
 				update_nums();
-				choose_algo_nofilename(algoname);
+				if (multicnt != 1)
+					cout << ">>> Repeating process for " << multicnt << " times...";
+				for (int i = 0; i < multicnt; ++i) 
+					choose_algo_nofilename(algoname, multicnt, i);
 				printf("------- RETURN TO %s -------", algoname.c_str());
 			}
 		}
 		else {
-			printf("\n>>> Using \"..\\%s\\temp.txt\"", algoname.c_str());
-			choose_algo(algoname);	
+			printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str());
+			if (multicnt != 1)
+				cout << ">>> Repeating process for " << multicnt << " times..." << endl;
+			for (int i = 0; i < multicnt; ++i) 
+				choose_algo(algoname, multicnt, i);	
+			cout << endl;
 		}
+
+		// TODO multirun save to csv?
 
 		if (check) {
 			cout << "------- REDIRECT verification -------" << endl;
@@ -99,6 +130,9 @@ int handle_sort_algo(string algoname, string ind, bool check) {
 
 		cout << ">>> Continue with same algorithm? (y/n) ";
 		cin >> ind;
+		multicnt = 1;
+		multirand = true;
+		cout << endl;
 	}
 	return cnt;
 }
@@ -125,6 +159,7 @@ int main() {
 			cout << ">>> Type `quit` to quit the program" << endl;
 			cout << ">>> Type `updateverify` to toggle sort-judging process" << endl;
 			cout << ">>> Type `env` or `environ` to show program configurations" << endl;
+			cout << ">>> Type `writefile` or `updatenums` to update test list" << endl;
 			cout << ">>> Available list of algorithm commands: " << endl;
 			cout << "    insertion, selection" << endl;
 			cout << "\n------- EXIT help -------" << endl;
@@ -136,6 +171,13 @@ int main() {
 			for (int i = 0; i < usedcommands.size(); ++i) {
 				cout << "      " << i+1 << ". " << usedcommands[i] << endl;
 			}
+		}
+		else if (cmd.compare("writefile") == 0 || cmd.compare("updatenums") == 0) {
+			cout << "\n------ CURRENT TOOL writefile -------" << endl;
+			cout << ">>> Note: don't forget folder name i.e., \"..\\insertion\\temp.txt\" or \"..\\selection\\temp.txt\"" << endl;
+			Writefile wrf;
+			wrf.writefile();
+			cout << "------ END TOOL writefile -------\n" << endl;
 		}
 		else if (cmd.compare("") != 0) {
 			if (!in_array(cmd, avbcommands))
