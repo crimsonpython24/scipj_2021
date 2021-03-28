@@ -14,7 +14,7 @@ using namespace std::chrono;
 
 class Selection {
     public:
-        void selection(string);
+        void selection(string, string);
 };
 
 #endif 

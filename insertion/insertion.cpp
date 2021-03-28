@@ -5,21 +5,23 @@
 #include <chrono>
 #include "insertion.h"
 #include "../main/readfile.h"
+#include "../main/writefile.h"
 using namespace std;
 using namespace std::chrono;
 
-void Insertion::insertion(string dirc) {
+void Insertion::insertion(string dirc, string out_dirc) {
 	Readfile rdf;
+	Writefile wrf;
     vector<int> vec = rdf.readfile(dirc);
     
 	int nums[vec.size()];
 	copy(vec.begin(), vec.end(), nums);
 	int n = sizeof(nums)/sizeof(nums[0]);
 
+	cout << "\n>>> running..." << endl;
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	cout << "\n>>> running..." << endl;
 	int i, key, j;
 	for (i = 1; i < n; ++i) {
 		key = nums[i];
@@ -38,6 +40,8 @@ void Insertion::insertion(string dirc) {
 	// cout << endl;
 
 	auto dur = duration_cast<microseconds>(end-start);
+	
+	wrf.writeresult(out_dirc, nums, n);
 	cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)\n" << endl;
 }
 

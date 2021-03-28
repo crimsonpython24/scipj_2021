@@ -7,7 +7,6 @@ using namespace std;
 
 #define prl cout<<endl
 
-
 void Writefile::write(string filename) {
 	int mode, cnt;
 	cout << ">>> Choose 1 for linear, 2 for random: "; cin >> mode;
@@ -42,6 +41,14 @@ void Writefile::writefile() {
 
 void Writefile::writefiledefaultdir(string filename) {
 	write(filename);
+}
+
+void Writefile::writeresult(string filename, int* nums, int n) {
+	ofstream file;
+	file.open(filename);
+	for (int i = 0; i < n; ++i)
+		file << nums[i] << " ";
+	file.close();
 }
 
 // FOR TESTING ONLY
