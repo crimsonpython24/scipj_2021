@@ -19,7 +19,7 @@ void Insertion::insertion(string dirc) {
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	cout << ">>> running..." << endl;
+	cout << "\n>>> running..." << endl;
 	int i, key, j;
 	for (i = 1; i < n; ++i) {
 		key = nums[i];
@@ -33,19 +33,19 @@ void Insertion::insertion(string dirc) {
 
 	auto end = high_resolution_clock::now(); // end
 
-	for (int m = 0; m < n; ++m)
-		cout << nums[m] << " "; // debug
-	cout << endl;
+	// for (int m = 0; m < n; ++m)
+	// 	cout << nums[m] << " "; // debug
+	// cout << endl;
 
 	auto dur = duration_cast<microseconds>(end-start);
-	cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;
+	cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)\n" << endl;
 }
 
 
 // FOR TESTING ONLY
 
-int main() {
-	Insertion ins;
-	ins.insertion("");
-	return 0;
-}
+// int main() {
+// 	Insertion ins;
+// 	ins.insertion("");
+// 	return 0;
+// }

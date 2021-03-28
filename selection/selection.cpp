@@ -19,29 +19,29 @@ void Selection::selection(string dirc) {
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	cout << ">>> running..." << endl;
-	int i, j, min_idx;
+	cout << "\n>>> running..." << endl;
+	int i, j, min;
     for (i = 0; i < n-1; ++i) {
-        min_idx = i;
+        min = i;
         for (j = i+1; j < n; j++)
-            if (nums[j] < nums[min_idx])
-                min_idx = j;
+            if (nums[j] < nums[min])
+                min = j;
   
-        int temp = *(&nums[min_idx]);
-        *(&nums[min_idx]) = *(&nums[i]);
+        int temp = *(&nums[min]);
+        *(&nums[min]) = *(&nums[i]);
         *(&nums[i]) = temp;
     }
 	auto end = high_resolution_clock::now(); // end
 
 	auto dur = duration_cast<microseconds>(end-start);
-	cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg)" << endl;
+	cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg)\n" << endl;
 }
 
 
 // FOR TESTING ONLY
 
-int main() {
-    Selection sec;
-	sec.selection("");
-	return 0;
-}
+// int main() {
+//     Selection slc;
+// 	slc.selection("");
+// 	return 0;
+// }

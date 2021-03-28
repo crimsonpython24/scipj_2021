@@ -40,14 +40,14 @@ void Writefile::writefile() {
 	write(filename);
 }
 
-void Writefile::writefiledftdir(string filename) {
+void Writefile::writefiledefaultdir(string filename) {
 	write(filename);
 }
 
 // FOR TESTING ONLY
 
-int main() {
-	Writefile wrf;
-	wrf.writefile();
-	return 0;
-}	
+// int main() {
+// 	Writefile wrf;
+// 	wrf.writefile();
+// 	return 0;
+// }	

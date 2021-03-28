@@ -13,7 +13,7 @@ using namespace std;
 class Writefile {
     public:
         void writefile();
-        void writefiledftdir(string);
+        void writefiledefaultdir(string);
     private:
         void write(string);
 };
