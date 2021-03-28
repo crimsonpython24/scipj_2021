@@ -3,13 +3,14 @@
 #include <sstream>
 #include <vector>
 #include <chrono>
+#include <map>
 #include "insertion.h"
 #include "../main/readfile.h"
 #include "../main/writefile.h"
 using namespace std;
 using namespace std::chrono;
 
-void Insertion::insertion(string dirc, string out_dirc, int multi, int cnt) {
+map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi, int cnt) {
 	Readfile rdf;
 	Writefile wrf;
     vector<int> vec = rdf.readfile(dirc);
@@ -46,7 +47,10 @@ void Insertion::insertion(string dirc, string out_dirc, int multi, int cnt) {
 	if (multi != 1)
 		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt+1 << "]" << endl;
 	else
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;
+		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;	
+
+	map<string, long> m1 = {{"mem", 0}, {"time", dur.count() }, {"items", n}};
+	return m1;
 }
 
 

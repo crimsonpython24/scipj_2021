@@ -3,26 +3,29 @@
 #include <cctype>
 #include <algorithm>
 #include <stdio.h>
-#include <map>
 #include "../insertion/insertion.h"
+#include "../selection/selection.h"
 #include "writefile.h"
 #include "judge.h"
 using namespace std;
 
-map<string, long>  choose_algo_nofilename(string algoname, int multi, int cnt) {
+void choose_algo_nofilename(string algoname, int multi, int cnt) {
 	Insertion ins;
-	map<string, long>  m1;
+	Selection slc;
 	if (algoname.compare("insertion") == 0)
-		m1 = ins.insertion("", "..\\insertion\\out.txt", multi, cnt);
-	return m1;
+		ins.insertion("", "..\\insertion\\out.txt", multi, cnt);
+	else if (algoname.compare("selection") == 0)
+		slc.selection("", "..\\selection\\out.txt", multi, cnt);
+	return;
 }
 
-map<string, long>  choose_algo(string algoname, int multi, int cnt) {
+void choose_algo(string algoname, int multi, int cnt) {
 	Insertion ins;
-	map<string, long>  m1;
+	Selection slc;
 	if (algoname.compare("insertion") == 0)
-		m1 = ins.insertion("..\\insertion\\temp.txt", "..\\insertion\\out.txt", multi, cnt);
-	return m1;
+		ins.insertion("..\\insertion\\temp.txt", "..\\insertion\\out.txt", multi, cnt);
+	else if (algoname.compare("selection") == 0)
+		slc.selection("..\\selection\\temp.txt", "..\\selection\\out.txt", multi, cnt);	
 }
 
 void update_nums_defaultdir(string dirc) {
@@ -52,24 +55,12 @@ bool in_array(const string &value, const vector<std::string> &array) {
     return std::find(array.begin(), array.end(), value) != array.end();
 }
 
-string map_to_string(map<string, long> m1) {
-	string output = "";
-	string convrt = "";
-	string result = "";
-	for (auto it = m1.cbegin(); it != m1.cend(); ++it) {
-		convrt = to_string(it->second);
-		output += "\"" + (it->first) + "\":" + (convrt) + ", ";
-	}
-	result = output.substr(0, output.size() - 2 );
-    return result;
-}
-
-int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, ofstream& file, int& json_count) {
+int handle_sort_algo(string algoname, string ind, bool check) {
 	string temp, temp2, dir_name, out_name;
 	int v_result, cnt = 0, multicnt = 1;
 	bool multirand = false;
-	map<string, long>  m1;
 	Insertion ins;
+	Selection slc;
 	Judge jdg;
 	while (check_yes(ind)) {
 		++cnt;
@@ -101,68 +92,26 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			if (check_yes(temp)) {
 				if (multicnt != 1)
 					cout << "\n>>> Repeating process for " << multicnt << " times..." << endl;
-				if (empty_json) {
-					file << "\t\"" << json_count << "\": [" << endl;
-					empty_json = false;
-				}
-				else
-					file << "\t,\"" << json_count << "\": [" << endl;
-				++json_count;
-
 				for (int i = 0; i < multicnt; ++i) {
 					update_nums_defaultdir(dir_name);
 					printf("------- CONTINUE TO %s -------\n", algoname.c_str());
-					m1 = choose_algo(algoname, multicnt, i);
-
-					if (i)
-						file << "\t\t,{" << map_to_string(m1) << "}" << endl;
-					else
-						file << "\t\t{" << map_to_string(m1) << "}" << endl;
+					choose_algo(algoname, multicnt, i);
 				}
-				file << "]" << endl;
 			} else {
-				if (empty_json) {
-					file << "\t\"" << json_count << "\": [" << endl;
-					empty_json = false;
-				}
-				else
-					file << "\t,\"" << json_count << "\": [" << endl;
-				++json_count;
-				
 				update_nums();
 				if (multicnt != 1)
 					cout << "\n>>> Repeating process for " << multicnt << " times...";
-				for (int i = 0; i < multicnt; ++i) {
-					m1 = choose_algo_nofilename(algoname, multicnt, i);
-					if (i)
-						file << "\t\t,{" << map_to_string(m1) << "}" << endl;
-					else
-						file << "\t\t{" << map_to_string(m1) << "}" << endl;
-				}
-				file << "]" << endl;
+				for (int i = 0; i < multicnt; ++i) 
+					choose_algo_nofilename(algoname, multicnt, i);
 				printf("------- RETURN TO %s -------", algoname.c_str());
 			}
 		}
 		else {
-			if (empty_json) {
-				file << "\t\"" << json_count << "\": [" << endl;
-				empty_json = false;
-			}
-			else
-				file << "\t,\"" << json_count << "\": [" << endl;
-				++json_count;
-				
 			printf(">>> Using \"..\\%s\\temp.txt\"", algoname.c_str());
 			if (multicnt != 1)
 				cout << "\n>>> Repeating process for " << multicnt << " times..." << endl;
-			for (int i = 0; i < multicnt; ++i) {
-				m1 = choose_algo(algoname, multicnt, i);	
-				if (i)
-					file << "\t\t,{" << map_to_string(m1) << "}" << endl;
-				else
-					file << "\t\t{" << map_to_string(m1) << "}" << endl;
-			}
-			file << "\t]" << endl;
+			for (int i = 0; i < multicnt; ++i) 
+				choose_algo(algoname, multicnt, i);	
 			cout << endl;
 		}
 
@@ -182,25 +131,13 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		multirand = false;
 		cout << endl;
 	}
-
 	return cnt;
 }
 
 int main() {
 	string parent, child, cmd = "", temp, ind = "yes";
-	vector<string> avbcommands = {"insertion"}, usedcommands = {};
-	bool check = false, empty_json = true;	
-	int json_count = 0;
-
-	ofstream file;
-	file.open("test.json");
-	file << "{" << endl;
-
-	cout << "------ WARNING ------" << endl;
-	cout << "Do NOT close the program using ctrl+C!\nThe JSON file depends on the last bracket, ";
-	cout << "so exit using `q` or `quit.`\nBlame me for using my least familiarized language...\n";
-	cout << "Take your time and enter the commands carefully. There's no return!\n";
-	cout << "------ END WARNING ------\n" << endl;
+	vector<string> avbcommands = {"insertion", "selection"}, usedcommands = {};
+	bool check = false;
 
 	while (true) {
 		if (cmd.compare("quit") == 0 || cmd.compare("q") == 0)
@@ -243,8 +180,7 @@ int main() {
 			if (!in_array(cmd, avbcommands))
 				cout << ">>> Please input an available command; type `help` for help\n" << endl;
 			else {
-				int x = handle_sort_algo(cmd, ind, check, empty_json, file, json_count);
-				empty_json = false;
+				int x = handle_sort_algo(cmd, ind, check);
 				usedcommands.push_back(cmd + " (x" + to_string(x) + ")");
 			}
 		}
@@ -252,9 +188,6 @@ int main() {
 		cin >> cmd;
 		transform(cmd.begin(), cmd.end(), cmd.begin(), [](unsigned char c) {return std::tolower(c);});
 	}
-	
-	file << "}" << endl;
-	file.close();
 
 	return 0;
 }
