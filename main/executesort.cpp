@@ -4,10 +4,10 @@
 #include <algorithm>
 #include <stdio.h>
 #include <map>
-#include "../insertion/insertion.h"
-#include "../selection/selection.h"
 #include "writefile.h"
 #include "judge.h"
+#include "../insertion/insertion.h"
+#include "../selection/selection.h"
 using namespace std;
 
 #define prl cout<<endl
@@ -195,7 +195,7 @@ int main() {
 			printf(">>> Verify has been toggled from %d to %d\n\n", !check, check);
 		}
 		else if (cmd.compare("help") == 0) {
-			cout << "------- CURRENT TOOL help -------\n" << endl;
+			cout << "\n------- CURRENT TOOL help -------\n" << endl;
 			cout << ">>> Type `help` for help (you're here)" << endl;
 			cout << ">>> Type `quit` to quit the program" << endl;
 			cout << ">>> Type `updateverify` to toggle sort-judging process" << endl;
@@ -203,20 +203,21 @@ int main() {
 			cout << ">>> Type `writefile` or `updatenums` to update test list" << endl;
 			cout << ">>> Available list of algorithm commands: " << endl;
 			cout << "    insertion, selection" << endl;
-			cout << "\n------- EXIT help -------" << endl;
+			cout << "\n------- EXIT help -------\n" << endl;
 		}
 		else if (cmd.compare("environ") == 0 || cmd.compare("env") == 0) {
-			cout << "\n------- CURRENT TOOL environ -------" << endl;
+			cout << "\n------- CURRENT TOOL environ -------\n" << endl;
 			cout << "   - Verify sort results: " << check << endl;
 			cout << "   - Used algorithms, in sequence: " << endl;
 			for (int i = 0; i < usedcommands.size(); ++i)
 				cout << "      " << i+1 << ". " << usedcommands[i] << endl;
+			cout << "\n------- EXIT environ -------\n" << endl;
 		}
 		else if (cmd.compare("writefile") == 0 || cmd.compare("updatenums") == 0) {
 			cout << "\n------ CURRENT TOOL writefile -------" << endl;
 			cout << ">>> Note: don't forget folder name i.e., \"..\\insertion\\temp.txt\" or \"..\\selection\\temp.txt\"" << endl;
 			wrf.writefile();
-			cout << "------ END TOOL writefile -------\n" << endl;
+			cout << "------ EXIT writefile -------\n" << endl;
 		}
 		else if (cmd.compare("") != 0) {
 			if (!in_array(cmd, avbcommands))
