@@ -15,7 +15,7 @@ class Writefile {
     public:
         string writefile();
         void writefiledefaultdir(string);
-        void writeresult(string, int*, int);
+        void writeresult(string, vector<int>);
     private:
         void write(string);
 };

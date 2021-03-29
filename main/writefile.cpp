@@ -54,10 +54,10 @@ void Writefile::writefiledefaultdir(string filename) {
 	write(filename);
 }
 
-void Writefile::writeresult(string filename, int* nums, int n) {
+void Writefile::writeresult(string filename, vector<int> nums) {
 	ofstream file;
 	file.open(filename);
-	for (int i = 0; i < n; ++i)
+	for (unsigned int i = 0; i < nums.size(); ++i)
 		file << nums[i] << " ";
 	file.close();
 }

@@ -13,7 +13,7 @@ bool Judge::judge(string filein, string fileout) {
     v2 = rdf.readfile(fileout);
     sort(v1.begin(), v1.end());
 
-    for (int i = 0; i < v2.size(); ++i) {
+    for (unsigned int i = 0; i < v2.size(); ++i) {
         if (v2[i] != v1[i])
             return false;
     }

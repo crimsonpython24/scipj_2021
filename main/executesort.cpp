@@ -209,7 +209,7 @@ int main() {
 			cout << "\n------- CURRENT TOOL environ -------\n" << endl;
 			cout << "   - Verify sort results: " << check << endl;
 			cout << "   - Used algorithms, in sequence: " << endl;
-			for (int i = 0; i < usedcommands.size(); ++i)
+			for (unsigned int i = 0; i < usedcommands.size(); ++i)
 				cout << "      " << i+1 << ". " << usedcommands[i] << endl;
 			cout << "\n------- EXIT environ -------\n" << endl;
 		}
