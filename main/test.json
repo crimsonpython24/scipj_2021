@@ -1,18 +1,2 @@
 {
-	"0": 
-	[
-		{"mode": "multi", "algorithm": "selection"},
-		[
-			{"items":30027, "mem":2, "time":772132}
-			,{"items":30027, "mem":2, "time":782843}
-			,{"items":30027, "mem":2, "time":785483}
-			,{"items":30027, "mem":2, "time":786291}
-			,{"items":30027, "mem":2, "time":763012}
-			,{"items":30027, "mem":2, "time":788580}
-			,{"items":30027, "mem":2, "time":779077}
-			,{"items":30027, "mem":2, "time":791737}
-			,{"items":30027, "mem":2, "time":776738}
-			,{"items":30027, "mem":2, "time":796078}
-		]
-	]
 }

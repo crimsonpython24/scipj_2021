@@ -43,7 +43,7 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 	
 	wrf.writeresult(out_dirc, nums, n);
 	if (multi != 1)
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt << "]" << endl;
+		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg) [" << cnt << "]" << endl;
 	else
 		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;	
 

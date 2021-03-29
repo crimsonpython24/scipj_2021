@@ -43,10 +43,11 @@ void Writefile::write(string filename) {
 	file.close();
 }
 
-void Writefile::writefile() {
+string Writefile::writefile() {
 	string filename;
 	cout << ">>> Input file name: "; cin >> filename;
 	write(filename);
+	return filename;
 }
 
 void Writefile::writefiledefaultdir(string filename) {
