@@ -1,9 +1,4 @@
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <algorithm>
-#include <stdio.h>
-#include <map>
+#include <bits/stdc++.h>
 #include "utils.h"
 #include "../insertion/insertion.h"
 #include "../selection/selection.h"
@@ -55,4 +50,17 @@ pair<int, int> Utils::find_pair_avg(vector<pair<int, int>> vec) {
 	temp.first = temp.first / vec.size();
 	temp.second = temp.second / vec.size();
 	return temp;
+}
+
+void Utils::write_file_end(int multicnt, ofstream& file, pair<int, int> temp4, Utils& uts, vector<pair<int, int>> nums) {
+	if (multicnt == 1) {
+		file << "\t\t]\n\t]" << endl; 
+		cout << endl;
+	} else {
+		temp4 = uts.find_pair_avg(nums);
+		file << "\t\t]," << endl;
+		file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + "}";
+		file << "\n\t]" << endl;
+		cout << endl;	
+	}
 }

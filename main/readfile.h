@@ -3,12 +3,7 @@
 #ifndef readfile_h
 #define readfile_h
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <string>
-#include <utility>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Readfile {

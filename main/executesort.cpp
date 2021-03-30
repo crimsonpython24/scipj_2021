@@ -1,12 +1,6 @@
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <algorithm>
-#include <stdio.h>
-#include <map>
+#include <bits/stdc++.h>
 #include "writefile.h"
 #include "judge.h"
-#include "utils.h"
 #include "utils.h"
 #include "../insertion/insertion.h"
 #include "../selection/selection.h"
@@ -28,9 +22,8 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		dir_name = "..\\" + algoname + "\\temp.txt";
 		out_name = "..\\" + algoname + "\\out.txt";
 		printf("\n------- CURRENT TOOL %s -------", algoname.c_str());
-		cout << "\n>>> Create multirun process? (y/N) ";
+		message_input("\n>>> Create multirun process? (y/N) ", temp);
 
-		cin >> temp;
 		if (uts.check_yes(temp)) {
 			message_input(">>> How many times to run? (positive whole number) ", multicnt);
 			message_input(">>> Change list each time? Must write a new file after every run (y/N) ", temp2);
@@ -41,10 +34,8 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		temp = "";
 
 		if (multicnt == 1) {
-			message_input("\n>>> Change sort test file? (y/N) ", temp); prl;
+			message_input("\n>>> Change sort test file? (y/N) ", temp);
 		}
-		if (multicnt != 1)
-			cout << "\n>>> Repeating process for " << multicnt << " times..." << endl;
 		if (empty_json) {
 			file << "\t\"" << json_count << "\": \n\t[" << endl;
 			empty_json = false;
@@ -53,12 +44,15 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			file << "\t,\"" << json_count << "\": \n\t[" << endl;
 		++json_count;
 
-		if (uts.check_yes(temp) || multirand == true) {
-			cout << "\n------- CURRENT TOOL updatenum -------" << endl;
-			printf(">>> Use default save location (..\\%s\\temp.txt)? (y/n -> create new file) ", algoname.c_str());
-			cin >> temp; prl;
+		if (uts.check_yes(temp) || multirand == true) { // for both cases, user wants to change input file
+			printf(">>> Use default save location (..\\%s\\temp.txt)? (y -> edit current/n -> create new) ", algoname.c_str());
+			cin >> temp;
+			if (multicnt != 1)
+				cout << "\n>>> Repeating process for " << multicnt << " times...\n" << endl;
 
-			file << "\t\t{\"mode\": \"varied\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
+			temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
+			                         "\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
+			file << temp2 << endl;
 			nums = {};
 			for (int i = 1; i <= multicnt; ++i) {
 				if (!uts.check_yes(temp)) {
@@ -77,20 +71,19 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 				if (i < multicnt)
 					printf("\n------- RETURN TO %s -------\n", algoname.c_str());
 			}
-
-			temp4 = uts.find_pair_avg(nums);
-			file << "\t\t]," << endl;
-			file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + "}";
-			file << "\n\t]" << endl; prl;
+			uts.write_file_end(multicnt, file, temp4, uts, nums);
 		}
-		else {
+		else { // repeat itself without changing anything BUT will ask for file input
 			printf(">>> Use default file (..\\%s\\temp.txt), not recommended for patched exe? (y/n) ", algoname.c_str());
-			cin >> temp;
-			if (uts.check_yes(temp)) {
-				printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str()); temp = "";
+			cin >> write_dir;
+			if (multicnt != 1)
+				cout << "\n>>> Repeating process for " << multicnt << " times...\n" << endl;
+
+			if (uts.check_yes(write_dir)) {
+				printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str()); write_dir = "";
 			}
 			else {
-				message_input(">>> Input text file directory: ", temp);
+				message_input(">>> Input text file directory: ", write_dir);
 				printf(">>> Using \"%s\"\n", temp.c_str());
 			}
 			temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
@@ -98,18 +91,11 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			file << temp2 << endl;
 			nums = {};
 			for (int i = 1; i <= multicnt; ++i) {
-				m1 = uts.choose_algo(temp, algoname, multicnt, i, ins, slc);
+				m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
 				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
 				uts.json_parse_child(i, file, m1);
 			}
-			if (multicnt == 1) {
-				file << "\t\t]\n\t]" << endl; prl;
-			} else {
-				temp4 = uts.find_pair_avg(nums);
-				file << "\t\t]," << endl;
-				file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + "}";
-				file << "\n\t]" << endl; prl;	
-			}
+			uts.write_file_end(multicnt, file, temp4, uts, nums);
 		}
 
 		if (check) {

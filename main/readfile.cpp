@@ -1,10 +1,4 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <algorithm>
-#include <utility>
+#include <bits/stdc++.h>
 #include "readfile.h"
 using namespace std;
 

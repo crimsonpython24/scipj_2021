@@ -3,12 +3,7 @@
 #ifndef utils_h
 #define utils_h
 
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <algorithm>
-#include <stdio.h>
-#include <map>
+#include <bits/stdc++.h>
 #include "../insertion/insertion.h"
 #include "../selection/selection.h"
 using namespace std;
@@ -22,6 +17,7 @@ class Utils {
         string map_to_string(map<string, long>);
         void json_parse_child(int, ofstream&, map<string, long>);
         pair<int, int> find_pair_avg(vector<pair<int, int>>);
+        void write_file_end(int, ofstream&, pair<int, int>, Utils&, vector<pair<int, int>>);
 };
 
 #endif 

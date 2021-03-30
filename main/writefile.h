@@ -3,11 +3,7 @@
 #ifndef writefile_h
 #define writefile_h
 
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <algorithm>
-#include <vector>
+#include <bits/stdc++.h>
 #include "writefile.h"
 using namespace std;
 

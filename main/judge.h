@@ -3,9 +3,7 @@
 #ifndef judge_h
 #define judge_h
 
-#include <iostream>
-#include <fstream>
-#include <vector>
+#include <bits/stdc++.h>
 #include "readfile.h"
 using namespace std;
 

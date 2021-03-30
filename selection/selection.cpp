@@ -1,8 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <chrono>
+#include <bits/stdc++.h>
 #include "windows.h"
 #include "psapi.h"
 #include "selection.h"

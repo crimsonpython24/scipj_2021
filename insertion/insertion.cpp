@@ -1,11 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
+#include <bits/stdc++.h>
 #include "windows.h"
 #include "psapi.h"
-#include <chrono>
-#include <map>
 #include "insertion.h"
 #include "../main/readfile.h"
 #include "../main/writefile.h"

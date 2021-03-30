@@ -1,7 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <vector>
+#include <bits/stdc++.h>
 #include "readfile.h"
 #include "judge.h"
 using namespace std;

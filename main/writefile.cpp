@@ -1,8 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <random>
-#include <string>
-#include <stdlib.h>
+#include <bits/stdc++.h>
 #include "writefile.h"
 using namespace std;
 
