@@ -1,18 +1,52 @@
 {
 	"0": 
 	[
+		{"mode": "varied", "algorithm": "insertion"},
+		[
+			{"items":10000, "mem":2, "time":253832}
+			,{"items":30000, "mem":2, "time":2003695}
+			,{"items":50000, "mem":2, "time":5550891}
+		],
+		{"items": 30000, "avg time (microseconds)": 2602806}
+	]
+	,"1": 
+	[
+		{"mode": "varied", "algorithm": "insertion"},
+		[
+			{"items":10000, "mem":2, "time":253885}
+			,{"items":30202, "mem":2, "time":1990792}
+		],
+		{"items": 20101, "avg time (microseconds)": 1122338}
+	]
+	,"2": 
+	[
 		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":15000, "mem":2, "time":1471519}
-			,{"items":15000, "mem":2, "time":1202140}
-			,{"items":15000, "mem":2, "time":1731305}
-			,{"items":15000, "mem":2, "time":1356147}
-			,{"items":15000, "mem":2, "time":881098}
-			,{"items":15000, "mem":2, "time":1132153}
-			,{"items":15000, "mem":2, "time":1230417}
-			,{"items":15000, "mem":2, "time":1252349}
-			,{"items":15000, "mem":2, "time":1195827}
-			,{"items":15000, "mem":2, "time":1206632}
+			{"items":50000, "mem":2, "time":5674699}
+			,{"items":50000, "mem":2, "time":5543517}
+			,{"items":50000, "mem":2, "time":5727527}
+			,{"items":50000, "mem":2, "time":6028472}
+			,{"items":50000, "mem":2, "time":7343953}
+			,{"items":50000, "mem":2, "time":7713940}
+			,{"items":50000, "mem":2, "time":7515676}
+			,{"items":50000, "mem":2, "time":6865726}
+			,{"items":50000, "mem":2, "time":7218197}
+			,{"items":50000, "mem":2, "time":7637787}
+		],
+		{"items": 50000, "avg time (microseconds)": 6726949}
+	]
+	,"3": 
+	[
+		{"mode": "single", "algorithm": "insertion"},
+		[
+			{"items":50000, "mem":2, "time":4295721}
+		]
+	]
+	,"4": 
+	[
+		{"mode": "single", "algorithm": "insertion"},
+		[
+			{"items":50000, "mem":2, "time":4448262}
 		]
 	]
 }

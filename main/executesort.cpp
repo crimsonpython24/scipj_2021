@@ -16,9 +16,10 @@ using namespace std;
 template <typename T> void message_input(string str1, T& into) {cout << str1; cin >> into;}
 
 int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, ofstream& file, int& json_count) {
-	string temp, temp2, dir_name, out_name;
+	string temp, temp2, dir_name, out_name, write_dir;
 	int v_result, cnt = 0, multicnt = 1;
 	bool multirand = false;
+	vector<pair<int, int>> nums = {}; pair<int, int> temp4 {};
 	map<string, long> m1;
 	Insertion ins; Selection slc; Writefile wrf; Judge jdg; Utils uts;
 
@@ -55,34 +56,38 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		if (uts.check_yes(temp) || multirand == true) {
 			cout << "\n------- CURRENT TOOL updatenum -------" << endl;
 			printf(">>> Use default save location (..\\%s\\temp.txt)? (y/n -> create new file) ", algoname.c_str());
-			cin >> temp;
+			cin >> temp; prl;
 
-			if (uts.check_yes(temp)) {
-				file << "\t\t{\"mode\": \"single\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
-				for (int i = 1; i <= multicnt; ++i) {
+			file << "\t\t{\"mode\": \"varied\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
+			nums = {};
+			for (int i = 1; i <= multicnt; ++i) {
+				if (!uts.check_yes(temp)) {
+					cout << "\n------- CURRENT TOOL writefile -------" << endl;
+					write_dir = wrf.writefile();
+					cout << "------- EXIT TOOL writefile -------\n" << endl;
+				} else {
 					wrf.writefiledefaultdir(dir_name);
-					printf("------- CONTINUE TO %s -------\n", algoname.c_str());
-					m1 = uts.choose_algo("", algoname, multicnt, i, ins, slc);
-					uts.json_parse_child(i, file, m1);
+					write_dir = "";
 				}
-			} else {
-				cout << "\n------- CURRENT TOOL writefile -------" << endl;
-				file << "\t\t{\"mode\": \"multi\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
-				for (int i = 1; i <= multicnt; ++i) {
-					string temp_dir = wrf.writefile();
-					m1 = uts.choose_algo(temp_dir, algoname, multicnt, i, ins, slc); // what is this tbh
-					uts.json_parse_child(i, file, m1);
-				}
+
+				m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
+				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
+				uts.json_parse_child(i, file, m1);
+				
+				if (i < multicnt)
+					printf("\n------- RETURN TO %s -------\n", algoname.c_str());
 			}
-			file << "\t\t]\n\t]" << endl;
+
+			temp4 = uts.find_pair_avg(nums);
+			file << "\t\t]," << endl;
+			file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + "}";
+			file << "\n\t]" << endl; prl;
 		}
 		else {
 			printf(">>> Use default file (..\\%s\\temp.txt), not recommended for patched exe? (y/n) ", algoname.c_str());
 			cin >> temp;
-			transform(temp.begin(), temp.end(), temp.begin(), [](unsigned char c) {return std::tolower(c);});
 			if (uts.check_yes(temp)) {
-				printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str());
-				temp = "";
+				printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str()); temp = "";
 			}
 			else {
 				message_input(">>> Input text file directory: ", temp);
@@ -91,11 +96,20 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
 			                         "\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
 			file << temp2 << endl;
+			nums = {};
 			for (int i = 1; i <= multicnt; ++i) {
 				m1 = uts.choose_algo(temp, algoname, multicnt, i, ins, slc);
+				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
 				uts.json_parse_child(i, file, m1);
 			}
-			file << "\t\t]\n\t]" << endl; prl;
+			if (multicnt == 1) {
+				file << "\t\t]\n\t]" << endl; prl;
+			} else {
+				temp4 = uts.find_pair_avg(nums);
+				file << "\t\t]," << endl;
+				file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + "}";
+				file << "\n\t]" << endl; prl;	
+			}
 		}
 
 		if (check) {

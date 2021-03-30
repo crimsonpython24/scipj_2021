@@ -21,6 +21,7 @@ class Utils {
         bool in_array(string&, vector<string>&);
         string map_to_string(map<string, long>);
         void json_parse_child(int, ofstream&, map<string, long>);
+        pair<int, int> find_pair_avg(vector<pair<int, int>>);
 };
 
 #endif 

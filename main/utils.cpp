@@ -44,3 +44,15 @@ void Utils::json_parse_child(int k, ofstream& file, map<string, long> m1) {
 	file << temp3 << endl;
 	return;
 }
+
+
+pair<int, int> Utils::find_pair_avg(vector<pair<int, int>> vec) {
+	pair<int, int> temp(0, 0);
+	for (int i = 0; i < vec.size(); ++i) {
+		temp.first += vec[i].first;
+		temp.second += vec[i].second;
+	}
+	temp.first = temp.first / vec.size();
+	temp.second = temp.second / vec.size();
+	return temp;
+}
