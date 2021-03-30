@@ -1,5 +1,18 @@
 {
 	"0": 
 	[
-		{"mode": "multi", "algorithm": "selection"},
+		{"mode": "multi", "algorithm": "insertion"},
 		[
+			{"items":15000, "mem":2, "time":1471519}
+			,{"items":15000, "mem":2, "time":1202140}
+			,{"items":15000, "mem":2, "time":1731305}
+			,{"items":15000, "mem":2, "time":1356147}
+			,{"items":15000, "mem":2, "time":881098}
+			,{"items":15000, "mem":2, "time":1132153}
+			,{"items":15000, "mem":2, "time":1230417}
+			,{"items":15000, "mem":2, "time":1252349}
+			,{"items":15000, "mem":2, "time":1195827}
+			,{"items":15000, "mem":2, "time":1206632}
+		]
+	]
+}
