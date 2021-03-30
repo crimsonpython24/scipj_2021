@@ -1,33 +1,53 @@
 {
 	"0": 
 	[
-		{"mode": "multi", "algorithm": "insertion"},
+		{"mode": "multi", "algorithm": "selection"},
 		[
-			{"items":43267, "mem":2, "time":3670602}
-			,{"items":43267, "mem":2, "time":4376412}
-			,{"items":43267, "mem":2, "time":4064778}
-			,{"items":43267, "mem":2, "time":4067004}
-			,{"items":43267, "mem":2, "time":4215096}
-			,{"items":43267, "mem":2, "time":4191523}
-			,{"items":43267, "mem":2, "time":3991056}
-			,{"items":43267, "mem":2, "time":3793796}
-			,{"items":43267, "mem":2, "time":4079362}
-			,{"items":43267, "mem":2, "time":4292624}
+			{"items":30000, "mem":2, "time":2529588}
+			,{"items":30000, "mem":2, "time":2621411}
+			,{"items":30000, "mem":2, "time":2547153}
+			,{"items":30000, "mem":2, "time":2637042}
+			,{"items":30000, "mem":2, "time":2561049}
+			,{"items":30000, "mem":2, "time":2685342}
+			,{"items":30000, "mem":2, "time":2563902}
+			,{"items":30000, "mem":2, "time":2699162}
+			,{"items":30000, "mem":2, "time":2617747}
+			,{"items":30000, "mem":2, "time":2726668}
 		],
-		{"items": 43267, "avg time (microseconds)": 4074225}
+		{"items": 30000, "avg time (microseconds)": 2618906}
 	]
 	,"1": 
 	[
-		{"mode": "single", "algorithm": "insertion"},
+		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":43267, "mem":2, "time":3620030}
-		]
+			{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+			,{"items":0, "mem":2, "time":0}
+		],
+		{"items": 0, "avg time (microseconds)": 0}
 	]
 	,"2": 
 	[
-		{"mode": "single", "algorithm": "insertion"},
+		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":23567, "mem":2, "time":738257}
-		]
+			{"items":76551, "mem":2, "time":13229893}
+			,{"items":45288, "mem":2, "time":4360869}
+			,{"items":27696, "mem":2, "time":1520553}
+			,{"items":46398, "mem":2, "time":4415886}
+			,{"items":67046, "mem":2, "time":10794091}
+			,{"items":41577, "mem":2, "time":3742266}
+			,{"items":38587, "mem":2, "time":3036723}
+			,{"items":74152, "mem":2, "time":10972067}
+			,{"items":59682, "mem":2, "time":6606658}
+			,{"items":45970, "mem":2, "time":3718005}
+		],
+		{"items": 52294, "avg time (microseconds)": 6239701}
 	]
 }

@@ -2,7 +2,7 @@
 
 *Run inside the `main\` folder*
 ```bash
-g++ executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" && a.exe
+g++ executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" "utils.cpp" && a.exe
 ```
 
 Compile two exe's without running nothing

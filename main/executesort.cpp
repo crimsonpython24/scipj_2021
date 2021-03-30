@@ -8,6 +8,7 @@ using namespace std;
 
 #define prl cout<<endl
 template <typename T> void message_input(string str1, T& into) {cout << str1; cin >> into;}
+vector<int> empty_vec = {};
 
 int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, ofstream& file, int& json_count) {
 	string temp, temp2, dir_name, out_name, write_dir;
@@ -57,10 +58,10 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			for (int i = 1; i <= multicnt; ++i) {
 				if (!uts.check_yes(temp)) {
 					cout << "\n------- CURRENT TOOL writefile -------" << endl;
-					write_dir = wrf.writefile();
+					write_dir = wrf.writefile(empty_vec);
 					cout << "------- EXIT TOOL writefile -------\n" << endl;
 				} else {
-					wrf.writefiledefaultdir(dir_name);
+					wrf.writefiledefaultdir(dir_name, empty_vec);
 					write_dir = "";
 				}
 
@@ -76,24 +77,57 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		else { // repeat itself without changing anything BUT will ask for file input
 			printf(">>> Use default file (..\\%s\\temp.txt), not recommended for patched exe? (y/n) ", algoname.c_str());
 			cin >> write_dir;
+			string newin, auto_choice, temp5;
+			vector<int> config = {0, 0, 0, 0};
+			message_input(">>> Automatically generate new test file every time? (y/n) ", newin);
+
 			if (multicnt != 1)
 				cout << "\n>>> Repeating process for " << multicnt << " times...\n" << endl;
+			if (uts.check_yes(newin)) {
+				cout << ">>> Automatic files (taken from config); alt directories are turned off" << endl;
+				message_input(">>> Stick with the existing configuration? (y/n) ", temp5);
+				if (uts.check_yes(temp5)) 
+					cout << ">>> Nevermind. move on" << endl;
+				else {
+					cout << ">>> How random should the files be? Note: the numbers are in `int`" << endl;
+					message_input("     * Enter lower bound for count: ", config[0]);
+					message_input("     * Enter upper bound for count: ", config[1]);
+					message_input("     * Enter lower bound for range: ", config[2]);
+					message_input("     * Enter upper bound for range: ", config[3]);
+				}
+			}
 
-			if (uts.check_yes(write_dir)) {
-				printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str()); write_dir = "";
-			}
-			else {
-				message_input(">>> Input text file directory: ", write_dir);
-				printf(">>> Using \"%s\"\n", temp.c_str());
-			}
-			temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
-			                         "\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
-			file << temp2 << endl;
-			nums = {};
-			for (int i = 1; i <= multicnt; ++i) {
-				m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
-				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
-				uts.json_parse_child(i, file, m1);
+			if (uts.check_yes(newin)) {
+				printf(">>> Using %s\n", dir_name.c_str());
+				temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
+										"\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
+				file << temp2 << endl;
+				nums = {};
+
+				for (int i = 1; i <= multicnt; ++i) {
+					wrf.writefiledefaultdir(dir_name, config);
+					m1 = uts.choose_algo("", algoname, multicnt, i, ins, slc);
+					temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
+					uts.json_parse_child(i, file, m1);
+				}
+				cout << "------- EXIT TOOL writefile -------\n" << endl;
+			} else {
+				if (uts.check_yes(write_dir)) {
+					printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str()); write_dir = "";
+				}
+				else {
+					message_input(">>> Input text file directory: ", write_dir);
+					printf(">>> Using \"%s\"\n", temp.c_str());
+				}
+				temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
+										"\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
+				file << temp2 << endl;
+				nums = {};
+				for (int i = 1; i <= multicnt; ++i) {
+					m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
+					temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
+					uts.json_parse_child(i, file, m1);
+				}
 			}
 			uts.write_file_end(multicnt, file, temp4, uts, nums);
 		}
@@ -136,7 +170,7 @@ int main() {
 			break;
 		else if (cmd.compare("updatenum") == 0) {
 			cout << ">>> CURRENT TOOL updatenum;" << endl;
-			wrf.writefile();
+			wrf.writefile(empty_vec);
 		}
 		else if (cmd.compare("updateverify") == 0) {
 			check = !check;
@@ -164,7 +198,7 @@ int main() {
 		else if (cmd.compare("writefile") == 0 || cmd.compare("updatenums") == 0) {
 			cout << "\n------ CURRENT TOOL writefile -------" << endl;
 			cout << ">>> Note: don't forget folder name i.e., \"..\\insertion\\temp.txt\" or \"..\\selection\\temp.txt\"" << endl;
-			wrf.writefile();
+			wrf.writefile(empty_vec);
 			cout << "------ EXIT writefile -------\n" << endl;
 		}
 		else if (cmd.compare("") != 0) {

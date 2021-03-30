@@ -35,3 +35,7 @@
 *.vim
 
 test/
+
+temp.txt
+temp_log.txt
+out.txt

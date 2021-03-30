@@ -4,51 +4,97 @@ using namespace std;
 
 #define prl cout<<endl
 
-void Writefile::write(string filename) {
-	int mode, cnt;
-	string temp;
-	cout << ">>> Choose 1 for linear, 2 for random (q/quit to quit): "; cin >> temp;
+int generate_random(int lower, int upper) {
+	mt19937 rng(rand());
+	uniform_int_distribution<mt19937::result_type> dist6(lower, upper);
+	return dist6(rng);
+}
 
-	if (temp.compare("quit") == 0|| temp.compare("q") == 0) {
+void Writefile::write(string filename, vector<int> def_choice) {
+	int mode, cnt, lo, hi;
+	string temp, line;
+	vector<int> vals;
+	ofstream file;
+	random_device rand;
+	bool all_zero = true;
+
+	if (def_choice.size() == 0) {
+		cout << ">>> Menu: " << endl;
+		cout << "      * 1: linear\n      * 2: random\n    \"-1\" to load config and \"q\" to quit\n(input) ";
+		cin >> temp;
+	}
+	else {
+		mode = -1; cnt = generate_random(def_choice[0], def_choice[1]); lo = def_choice[2]; hi = def_choice[3];
+	}
+	if (temp.compare("quit") == 0 || temp.compare("q") == 0) {
 		exit(0);
 		cout << "------ EXIT writefile ------\n" << endl;
-	}
-	else
-		mode = stoi(temp);
+	} else if (def_choice.size() != 0) {        // DO NOT edit the value of temp! will be used for config
+		ifstream config_file (filename.substr(0, filename.size()-4) + "_config.txt");
+		for (int i=0; i<def_choice.size(); ++i) {
+			if (def_choice[i] != 0) 
+				all_zero = false;
+		}
+		if (all_zero) {
+			if (config_file.is_open()) {
+				while (getline(config_file, line)) {
+					istringstream iss(line);
+					for (string k; iss >> k; )
+						vals.push_back(stoi(k));
+				}
+				config_file.close();
+			}
+		}
+		else
+			vals = def_choice;
 
-	cout << ">>> Input number of numbers: "; cin >> cnt;
-
-	ofstream file;
-	file.open(filename);
-
-	if (mode == 1) {
-		for (int i = 0; i < cnt; ++i)
-			file << i << " ";
-	} else if (mode == 2) {
-		int lo, hi;
-		cout << ">>> Input lower and upper bound, separate with \'enter\': ";
-		cin >> lo >> hi;
-		random_device rand;
-
+		file.open(filename);
 		for (int i = 0; i < cnt; ++i) {
 			mt19937 rng(rand());
 			uniform_int_distribution<mt19937::result_type> dist6(lo, hi);
 			file << dist6(rng) << " ";
 		}
+		file.close();
 	}
-	file.close();
+	else {
+		mode = stoi(temp);
+		cout << ">>> Input number of numbers: "; cin >> cnt;
+		file.open(filename);
+
+		if (mode == 1) {
+			for (int i = 0; i < cnt; ++i)
+				file << i << " ";
+		} else if (mode == 2) {
+			cout << ">>> Input lower and upper bound, separate with \'enter\': ";
+			cin >> lo >> hi;
+
+			for (int i = 0; i < cnt; ++i) {
+				mt19937 rng(rand());
+				uniform_int_distribution<mt19937::result_type> dist6(lo, hi);
+				file << dist6(rng) << " ";
+			}
+		}
+		file.close();
+	}
+	
+	ofstream out((filename.substr(0, filename.size()-4) + "_log.txt"), ios_base::app);
+	auto end = chrono::system_clock::now();
+    std::time_t end_time = chrono::system_clock::to_time_t(end);
+	out << ctime(&end_time) << temp << " " << cnt << " " << lo << " " << hi << endl;
+	out.close();
+
 	return;
 }
 
-string Writefile::writefile() {
+string Writefile::writefile(vector<int> mode) {
 	string filename;
 	cout << ">>> Input file name: "; cin >> filename;
-	write(filename);
+	write(filename, mode);
 	return filename;
 }
 
-void Writefile::writefiledefaultdir(string filename) {
-	write(filename);
+void Writefile::writefiledefaultdir(string filename, vector<int> mode) {
+	write(filename, mode);
 	return;
 }
 
@@ -75,6 +121,6 @@ void Writefile::write_all_results(string out_dirc, vector<int> vec, int multi, l
 
 // int main() {
 // 	Writefile wrf;
-// 	wrf.writefile();
+// 	wrf.write("..\\insertion\\temp.txt");
 // 	return 0;
 // }	
