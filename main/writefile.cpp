@@ -41,6 +41,7 @@ void Writefile::write(string filename) {
 		}
 	}
 	file.close();
+	return;
 }
 
 string Writefile::writefile() {
@@ -52,6 +53,7 @@ string Writefile::writefile() {
 
 void Writefile::writefiledefaultdir(string filename) {
 	write(filename);
+	return;
 }
 
 void Writefile::writeresult(string filename, vector<int> nums) {
@@ -60,6 +62,17 @@ void Writefile::writeresult(string filename, vector<int> nums) {
 	for (unsigned int i = 0; i < nums.size(); ++i)
 		file << nums[i] << " ";
 	file.close();
+	return;
+}
+
+void Writefile::write_all_results(string out_dirc, vector<int> vec, int multi, long long int dur, int cnt) {
+	Writefile wrf;
+	string pr;
+	wrf.writeresult(out_dirc, vec);
+	pr = (multi != 1) ? ">>> TIME TAKEN " + to_string(dur) + "ms USING insertion (reg) [" + to_string(cnt) + "]" :
+	      ">>> TIME TAKEN " + to_string(dur) + "ms USING insertion (reg)";
+	cout << pr << endl;
+	return;
 }
 
 // FOR TESTING ONLY

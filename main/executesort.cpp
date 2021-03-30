@@ -14,18 +14,13 @@ using namespace std;
 
 map<string, long> choose_algo(string in_dir, string algoname, int multi, int cnt, Insertion& ins, Selection& slc) {
 	map<string, long> m1;
-	if (in_dir.compare("") == 0) {
-		if (algoname.compare("insertion") == 0)
-			m1 = ins.insertion("..\\insertion\\temp.txt", "..\\insertion\\out.txt", multi, cnt);
-		else if (algoname.compare("selection") == 0)
-			m1 = slc.selection("..\\selection\\temp.txt", "..\\selection\\out.txt", multi, cnt);	
-	}
-	else {
-		if (algoname.compare("insertion") == 0)
-			m1 = ins.insertion(in_dir, "..\\insertion\\out.txt", multi, cnt);
-		else if (algoname.compare("selection") == 0)
-			m1 = slc.selection(in_dir, "..\\selection\\out.txt", multi, cnt);	
-	}
+	string temp3;
+	temp3 = (in_dir.compare("") == 0) ? ("..\\" + algoname + "\\temp.txt") : in_dir;
+
+	if (algoname.compare("insertion") == 0)
+		m1 = ins.insertion(temp3, "..\\insertion\\out.txt", multi, cnt);
+	else if (algoname.compare("selection") == 0)
+		m1 = slc.selection(temp3, "..\\selection\\out.txt", multi, cnt);
 	return m1;
 }
 
@@ -39,22 +34,18 @@ bool in_array(const string &value, const vector<std::string> &array) {
 }
 
 string map_to_string(map<string, long> m1) {
-	string output = "";
-	string convrt = "";
-	string result = "";
-	for (auto it = m1.cbegin(); it != m1.cend(); ++it) {
-		convrt = to_string(it->second);
-		output += "\"" + (it->first) + "\":" + (convrt) + ", ";
-	}
+	string output = "",  result = "";
+	for (auto it = m1.cbegin(); it != m1.cend(); ++it) 
+		output += "\"" + (it->first) + "\":" + (to_string(it->second)) + ", ";
 	result = output.substr(0, output.size() - 2 );
     return result;
 }
 
 void json_parse_child(int k, ofstream& file, map<string, long> m1) {
-	if (k != true)
-		file << "\t\t\t,{" << map_to_string(m1) << "}" << endl;
-	else
-		file << "\t\t\t{" << map_to_string(m1) << "}" << endl;
+	string temp3;
+	temp3 = (k != true) ? "\t\t\t,{" + map_to_string(m1) + "}" : "\t\t\t{" + map_to_string(m1) + "}";
+	file << temp3 << endl;
+	return;
 }
 
 int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, ofstream& file, int& json_count) {
@@ -62,10 +53,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 	int v_result, cnt = 0, multicnt = 1;
 	bool multirand = false;
 	map<string, long> m1;
-	Insertion ins;
-	Selection slc;
-	Writefile wrf;
-	Judge jdg;
+	Insertion ins; Selection slc; Writefile wrf; Judge jdg;
 
 	while (check_yes(ind)) {
 		++cnt;
@@ -137,10 +125,9 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 				cin >> temp;
 				printf(">>> Using \"%s\"\n", temp.c_str());
 			}
-			if (multicnt == 1)
-				file << "\t\t{\"mode\": \"single\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
-			else
-				file << "\t\t{\"mode\": \"multi\", \"algorithm\": \"" << algoname << "\"},\n\t\t[" << endl;
+			temp = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
+			                         "\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
+			file << temp << endl;
 			for (int i = 1; i <= multicnt; ++i) {
 				m1 = choose_algo(temp, algoname, multicnt, i, ins, slc);
 				json_parse_child(i, file, m1);
@@ -152,10 +139,9 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			cout << "------- REDIRECT verification -------" << endl;
 			cout << ">>> Change verification settings by typing \"updateverify\"" << endl;
 			v_result = jdg.judge(dir_name, out_name);
-			if (v_result == 1)
-				cout << ">>> Verification passed!\n" << endl;
-			else
-				cout << ">>> Verification failed!\n" << endl;
+
+			temp = (v_result == 1) ? ">>> Verification passed!\n" : ">>> Verification failed\n";
+			cout << temp << endl;
 		}
 
 		cout << ">>> Continue with same algorithm? (y/n) ";

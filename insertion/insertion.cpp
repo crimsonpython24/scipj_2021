@@ -22,7 +22,7 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	unsigned int i, j;
+	int i, j;
 	int key;
 	for (i = 1; i < vec.size(); ++i) {
 		key = vec[i];
@@ -35,19 +35,12 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 	}
 
 	auto end = high_resolution_clock::now(); // end
-
 	auto dur = duration_cast<microseconds>(end-start);
 	
-	wrf.writeresult(out_dirc, vec);
-	if (multi != 1)
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg) [" << cnt << "]" << endl;
-	else
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;	
-
+	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt);
 	PROCESS_MEMORY_COUNTERS_EX pmc;
-	SIZE_T physMemUsedByMe = pmc.WorkingSetSize;
 
-	map<string, long> m1 = {{"mem", physMemUsedByMe}, {"time", dur.count() }, {"items", vec.size()}};
+	map<string, long> m1 = {{"mem", pmc.WorkingSetSize}, {"time", dur.count() }, {"items", vec.size()}};
 	return m1;
 }
 

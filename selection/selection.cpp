@@ -21,7 +21,7 @@ map<string, long> Selection::selection(string dirc, string out_dirc, int multi, 
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	unsigned int i, j;
+	int i, j;
 	int min;
     for (i = 0; i < vec.size()-1; ++i) {
         min = i;
@@ -34,20 +34,12 @@ map<string, long> Selection::selection(string dirc, string out_dirc, int multi, 
         *(&vec[i]) = temp;
     }
 	auto end = high_resolution_clock::now(); // end
-
 	auto dur = duration_cast<microseconds>(end-start);
 	
-	wrf.writeresult(out_dirc, vec);
-	if (multi != 1)
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING selection (reg) [" << cnt << "]" << endl;
-	else
-		cout << ">>> TIME TAKEN " << dur.count() << "ms USING insertion (reg)" << endl;
-	
 	PROCESS_MEMORY_COUNTERS_EX pmc;
-	SIZE_T physMemUsedByMe = pmc.WorkingSetSize;
+	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt);
 
-	map<string, long> m1 = {{"mem", physMemUsedByMe}, {"time", dur.count() }, {"items", vec.size()}};
-
+	map<string, long> m1 = {{"mem", pmc.WorkingSetSize}, {"time", dur.count() }, {"items", vec.size()}};
 	return m1;
 }
 
