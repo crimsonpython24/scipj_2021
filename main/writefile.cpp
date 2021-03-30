@@ -11,12 +11,9 @@ int generate_random(int lower, int upper) {
 }
 
 void Writefile::write(string filename, vector<int> def_choice) {
-	int mode, cnt, lo, hi;
-	string temp, line;
-	vector<int> vals;
-	ofstream file;
-	random_device rand;
-	bool all_zero = true;
+	int mode, cnt, lo, hi; bool all_zero = true;
+	string temp, line; vector<int> vals;
+	ofstream file; random_device rand;
 
 	if (def_choice.size() == 0) {
 		cout << ">>> Menu: " << endl;
@@ -30,20 +27,21 @@ void Writefile::write(string filename, vector<int> def_choice) {
 		exit(0);
 		cout << "------ EXIT writefile ------\n" << endl;
 	} else if (def_choice.size() != 0) {        // DO NOT edit the value of temp! will be used for config
-		ifstream config_file (filename.substr(0, filename.size()-4) + "_config.txt");
 		for (int i=0; i<def_choice.size(); ++i) {
 			if (def_choice[i] != 0) 
 				all_zero = false;
 		}
 		if (all_zero) {
+			ifstream config_file (filename.substr(0, filename.size()-4) + "_config.txt");
 			if (config_file.is_open()) {
 				while (getline(config_file, line)) {
 					istringstream iss(line);
 					for (string k; iss >> k; )
 						vals.push_back(stoi(k));
 				}
-				config_file.close();
 			}
+			cnt = vals[1]; lo = vals[2]; hi = vals[3];
+			config_file.close();
 		}
 		else
 			vals = def_choice;

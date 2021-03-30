@@ -19,3 +19,9 @@ Compiling individual files
 ```bash
 g++ insertion.cpp "..\main\writefile.cpp" "..\main\readfile.cpp" && a.exe 
 ```
+
+### Miscellaneous
+**GPG not working**: `gpg: can't connect to the agent: IPC connect call failed`
+```bash
+gpg-connect-agent --verbose
+```

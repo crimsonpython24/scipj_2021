@@ -7,12 +7,9 @@ using namespace std;
 map<string, long> Utils::choose_algo(string in_dir, string algoname, int multi, int cnt, Insertion& ins, Selection& slc) {
 	map<string, long> m1;
 	string temp3;
-	temp3 = (in_dir.compare("") == 0) ? ("..\\" + algoname + "\\temp.txt") : in_dir;
+	temp3 = (in_dir.compare("") == 0) ? ("..\\txt_files\\temp.txt") : in_dir;
 
-	if (algoname.compare("insertion") == 0)
-		m1 = ins.insertion(temp3, "..\\insertion\\out.txt", multi, cnt);
-	else if (algoname.compare("selection") == 0)
-		m1 = slc.selection(temp3, "..\\selection\\out.txt", multi, cnt);
+	m1 = ins.insertion(temp3, "..\\txt_files\\out.txt", multi, cnt);
 	return m1;
 }
 

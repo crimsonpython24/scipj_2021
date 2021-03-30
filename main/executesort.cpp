@@ -20,8 +20,8 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 
 	while (uts.check_yes(ind)) {
 		++cnt;
-		dir_name = "..\\" + algoname + "\\temp.txt";
-		out_name = "..\\" + algoname + "\\out.txt";
+		dir_name = "..\\txt_files\\temp.txt";
+		out_name = "..\\txt_files\\out.txt";
 		printf("\n------- CURRENT TOOL %s -------", algoname.c_str());
 		message_input("\n>>> Create multirun process? (y/N) ", temp);
 
@@ -46,8 +46,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		++json_count;
 
 		if (uts.check_yes(temp) || multirand == true) { // for both cases, user wants to change input file
-			printf(">>> Use default save location (..\\%s\\temp.txt)? (y -> edit current/n -> create new) ", algoname.c_str());
-			cin >> temp;
+			message_input(">>> Use default save location (..\\txt_files\\temp.txt)? (y -> edit current/n -> create new) ", temp);
 			if (multicnt != 1)
 				cout << "\n>>> Repeating process for " << multicnt << " times...\n" << endl;
 
@@ -75,11 +74,11 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			uts.write_file_end(multicnt, file, temp4, uts, nums);
 		}
 		else { // repeat itself without changing anything BUT will ask for file input
-			printf(">>> Use default file (..\\%s\\temp.txt), not recommended for patched exe? (y/n) ", algoname.c_str());
-			cin >> write_dir;
+			message_input(">>> Use default file (..\\txt_files\\temp.txt), not recommended for patched exe? (y/n) ", write_dir);
 			string newin, auto_choice, temp5;
 			vector<int> config = {0, 0, 0, 0};
-			message_input(">>> Automatically generate new test file every time? (y/n) ", newin);
+			if (multicnt != 1)
+				message_input(">>> Automatically generate new test file every time? (y/n) ", newin);
 
 			if (multicnt != 1)
 				cout << "\n>>> Repeating process for " << multicnt << " times...\n" << endl;
@@ -97,37 +96,26 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 				}
 			}
 
-			if (uts.check_yes(newin)) {
-				printf(">>> Using %s\n", dir_name.c_str());
-				temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
-										"\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
-				file << temp2 << endl;
-				nums = {};
-
-				for (int i = 1; i <= multicnt; ++i) {
+			if (uts.check_yes(write_dir) || uts.check_yes(newin)) {
+				cout << (">>> Using \"..\\txt_files\\temp.txt\"\n"); write_dir = "";
+			}
+			else {
+				message_input(">>> Input text file directory: ", write_dir);
+				printf(">>> Using \"%s\"\n", write_dir.c_str());
+			}
+			temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
+									"\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
+			file << temp2 << endl;
+			nums = {};
+			for (int i = 1; i <= multicnt; ++i) {
+				if (uts.check_yes(newin)) {
 					wrf.writefiledefaultdir(dir_name, config);
 					m1 = uts.choose_algo("", algoname, multicnt, i, ins, slc);
-					temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
-					uts.json_parse_child(i, file, m1);
-				}
-				cout << "------- EXIT TOOL writefile -------\n" << endl;
-			} else {
-				if (uts.check_yes(write_dir)) {
-					printf(">>> Using \"..\\%s\\temp.txt\"\n", algoname.c_str()); write_dir = "";
-				}
-				else {
-					message_input(">>> Input text file directory: ", write_dir);
-					printf(">>> Using \"%s\"\n", temp.c_str());
-				}
-				temp2 = (multicnt == 1) ? "\t\t{\"mode\": \"single\", \"algorithm\": \"" + algoname + "\"},\n\t\t[" :
-										"\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
-				file << temp2 << endl;
-				nums = {};
-				for (int i = 1; i <= multicnt; ++i) {
+				} else {
 					m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
-					temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
-					uts.json_parse_child(i, file, m1);
 				}
+				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
+				uts.json_parse_child(i, file, m1);
 			}
 			uts.write_file_end(multicnt, file, temp4, uts, nums);
 		}
