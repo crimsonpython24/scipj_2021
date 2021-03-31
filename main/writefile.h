@@ -9,11 +9,11 @@ using namespace std;
 
 class Writefile {
     public:
-        string writefile(vector<int>);
-        void writefiledefaultdir(string, vector<int>);
+        vector<int> write(string, vector<int>);
+        pair<string, vector<int>> writefile(vector<int>);
+        vector<int> writefiledefaultdir(string, vector<int>);
         void writeresult(string, vector<int>);
         void write_all_results(string, vector<int>, int, long long int, int);
-        void write(string, vector<int>);
 };
 
 #endif 

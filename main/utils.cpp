@@ -67,17 +67,23 @@ pair<int, int> Utils::find_pair_avg(vector<pair<int, int>> vec) {
 	return temp;
 }
 
-void Utils::write_file_end(int multicnt, ofstream& file, pair<int, int> temp4, Utils& uts, vector<pair<int, int>> nums) {
+void Utils::write_file_end(int multicnt, ofstream& file, pair<int, int> temp4, Utils& uts, vector<pair<int, int>> nums, vector<int> conf) {
 	Readfile rdf;
 	vector<int> vec0 = rdf.readfile("..\\txt_files\\temp.txt");
 	vector<double> vec(vec0.begin(), vec0.end());
 	if (multicnt == 1) {
-		file << "\t\t]\n\t]" << endl; 
+		file << "\t\t]," << endl;
+		file << "\t\t{\"mode\": " + to_string(conf[0]) + ", \"cnt\": " + to_string(conf[1]) + ", \"lo\": "
+						+ to_string(conf[2]) + ", \"hi\": " + to_string(conf[3]) + "}";
+		file << "\n\t]" << endl; 
 		cout << endl;
 	} else {
 		temp4 = uts.find_pair_avg(nums);
 		file << "\t\t]," << endl;
-		file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + ", \"std dev\": " + to_string(variance(vec)) + "}";
+		file << "\t\t{\"mode\": " + to_string(conf[0]) + ", \"cnt\": " + to_string(conf[1]) + ", \"lo\": "
+						+ to_string(conf[2]) + ", \"hi\": " + to_string(conf[3]) + "},\n";
+		file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": "
+						+ to_string(temp4.second) + ", \"std dev\": " + to_string(variance(vec)) + "}";
 		file << "\n\t]" << endl;
 		cout << endl;	
 	}

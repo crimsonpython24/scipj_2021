@@ -11,7 +11,7 @@ int generate_random(int lower, int upper) {
 	return dist6(rng);
 }
 
-void Writefile::write(string filename, vector<int> cfg) {
+vector<int> Writefile::write(string filename, vector<int> cfg) {
 	int mode, cnt, lo, hi; bool all_zero = true;
 	string temp, line; vector<int> vals;
 	ofstream file; random_device rand;
@@ -88,19 +88,21 @@ void Writefile::write(string filename, vector<int> cfg) {
 	out << ctime(&end_time) << mode << " " << cnt << " " << lo << " " << hi << endl;
 	out.close();
 
-	return;
+	vector<int> result = {mode, cnt, lo, hi};
+	return result;
 }
 
-string Writefile::writefile(vector<int> mode) {
+pair<string, vector<int>> Writefile::writefile(vector<int> mode) {
 	string filename;
 	cout << ">>> Input file name: "; cin >> filename;
-	write(filename, mode);
-	return filename;
+	vector<int> data = write(filename, mode);
+
+	pair<string, vector<int>> result(filename, data);
+	return result;
 }
 
-void Writefile::writefiledefaultdir(string filename, vector<int> mode) {
-	write(filename, mode);
-	return;
+vector<int> Writefile::writefiledefaultdir(string filename, vector<int> mode) {
+	return write(filename, mode);
 }
 
 void Writefile::writeresult(string filename, vector<int> nums) {

@@ -14,7 +14,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 	string temp, temp2, dir_name, out_name, write_dir;
 	int v_result, cnt = 0, multicnt = 1;
 	bool multirand = false;
-	vector<pair<int, int>> nums = {}; pair<int, int> temp4 {};
+	vector<pair<int, int>> nums = {}; pair<int, int> temp4 {}; pair<string, vector<int>> temp6;
 	map<string, long> m1;
 	Insertion ins; Selection slc; Writefile wrf; Judge jdg; Utils uts;
 
@@ -22,6 +22,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		++cnt;
 		dir_name = "..\\txt_files\\temp.txt";
 		out_name = "..\\txt_files\\out.txt";
+		vector<int> conf = {-1, -1, -1, -1};
 		printf("\n------- CURRENT TOOL %s -------", algoname.c_str());
 		message_input("\n>>> Create multirun process? (y/N) ", temp);
 
@@ -57,10 +58,12 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			for (int i = 1; i <= multicnt; ++i) {
 				if (!uts.check_yes(temp)) {
 					cout << "\n------- CURRENT TOOL writefile -------" << endl;
-					write_dir = wrf.writefile(empty_vec);
+					temp6 = wrf.writefile(empty_vec);
+					write_dir = temp6.first;
+					conf = temp6.second;
 					cout << "------- EXIT TOOL writefile -------\n" << endl;
 				} else {
-					wrf.writefiledefaultdir(dir_name, empty_vec);
+					conf = wrf.writefiledefaultdir(dir_name, empty_vec);
 					write_dir = "";
 				}
 
@@ -71,7 +74,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 				if (i < multicnt)
 					printf("\n------- RETURN TO %s -------\n", algoname.c_str());
 			}
-			uts.write_file_end(multicnt, file, temp4, uts, nums);
+			uts.write_file_end(multicnt, file, temp4, uts, nums, conf);
 		}
 		else { // repeat itself without changing anything BUT will ask for file input
 			message_input(">>> Use default file (..\\txt_files\\temp.txt), not recommended for patched exe? (y/n) ", write_dir);
@@ -111,7 +114,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			nums = {};
 			for (int i = 1; i <= multicnt; ++i) {
 				if (uts.check_yes(newin)) {
-					wrf.writefiledefaultdir(dir_name, config);
+					conf = wrf.writefiledefaultdir(dir_name, config);
 					m1 = uts.choose_algo("", algoname, multicnt, i, ins, slc);
 				} else {
 					m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
@@ -119,7 +122,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
 				uts.json_parse_child(i, file, m1);
 			}
-			uts.write_file_end(multicnt, file, temp4, uts, nums);
+			uts.write_file_end(multicnt, file, temp4, uts, nums, conf);
 		}
 
 		if (check) {
