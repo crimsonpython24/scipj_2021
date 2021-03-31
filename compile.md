@@ -7,12 +7,12 @@ g++ executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "j
 
 Compile two exe's without running nothing
 ```bash
-g++ executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" && g++ -Wall -pedantic executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" -o build.exe
+g++ executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" "utils.cpp" && g++ -Wall -pedantic executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" "utils.cpp" -o build.exe
 ```
 
 Build a main executable
 ```bash
-g++ -Wall -pedantic executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" -o build.exe
+g++ -Wall -pedantic executesort.cpp "..\insertion\insertion.cpp" "..\selection\selection.cpp" "judge.cpp" "readfile.cpp" "writefile.cpp" "utils.cpp" -o build.exe
 ```
 
 Compiling individual files

@@ -76,7 +76,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 		else { // repeat itself without changing anything BUT will ask for file input
 			message_input(">>> Use default file (..\\txt_files\\temp.txt), not recommended for patched exe? (y/n) ", write_dir);
 			string newin, auto_choice, temp5;
-			vector<int> config = {0, 0, 0, 0};
+			vector<int> config = {0, 0, 0, 0, 0, 0};
 			if (multicnt != 1)
 				message_input(">>> Automatically generate new test file every time? (y/n) ", newin);
 
@@ -93,6 +93,8 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 					message_input("     * Enter upper bound for count: ", config[1]);
 					message_input("     * Enter lower bound for range: ", config[2]);
 					message_input("     * Enter upper bound for range: ", config[3]);
+					message_input("     * Enter range for lower bound (can be negative): ", config[4]);
+					message_input("     * Enter range for upper bound (can be negative): ", config[5]);
 				}
 			}
 
@@ -107,6 +109,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 									"\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
 			file << temp2 << endl;
 			nums = {};
+			cout << multicnt << " " << newin << endl;
 			for (int i = 1; i <= multicnt; ++i) {
 				if (uts.check_yes(newin)) {
 					wrf.writefiledefaultdir(dir_name, config);
@@ -115,6 +118,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 					m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
 				}
 				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
+				cout << "not here?";
 				uts.json_parse_child(i, file, m1);
 			}
 			uts.write_file_end(multicnt, file, temp4, uts, nums);

@@ -5,30 +5,34 @@ using namespace std;
 #define prl cout<<endl
 
 int generate_random(int lower, int upper) {
+	random_device rand;
 	mt19937 rng(rand());
-	uniform_int_distribution<mt19937::result_type> dist6(lower, upper);
+	uniform_int_distribution<int> dist6(lower, upper);
 	return dist6(rng);
 }
 
-void Writefile::write(string filename, vector<int> def_choice) {
+void Writefile::write(string filename, vector<int> cfg) {
 	int mode, cnt, lo, hi; bool all_zero = true;
 	string temp, line; vector<int> vals;
 	ofstream file; random_device rand;
 
-	if (def_choice.size() == 0) {
+	if (cfg.size() == 0) {
 		cout << ">>> Menu: " << endl;
-		cout << "      * 1: linear\n      * 2: random\n    \"-1\" to load config and \"q\" to quit\n(input) ";
+		cout << "      * 1: linear\n      * 2: reverse linear      * 3: random\n";
+		cout << "    \"-1\" to load config and \"q\" to quit\n(input) ";
 		cin >> temp;
 	}
 	else {
-		mode = -1; cnt = generate_random(def_choice[0], def_choice[1]); lo = def_choice[2]; hi = def_choice[3];
+		mode = -1; cnt = generate_random(cfg[0], cfg[1]);
+		lo = (cfg[4] < 0) ? generate_random(cfg[4] + cfg[2], cfg[2]) : generate_random(cfg[2], cfg[2] + cfg[4]);
+		hi = (cfg[5] < 0) ? generate_random(cfg[5] + cfg[3], cfg[3]) : generate_random(cfg[3], cfg[3] + cfg[5]);
 	}
 	if (temp.compare("quit") == 0 || temp.compare("q") == 0) {
 		exit(0);
 		cout << "------ EXIT writefile ------\n" << endl;
-	} else if (def_choice.size() != 0) {        // DO NOT edit the value of temp! will be used for config
-		for (int i=0; i<def_choice.size(); ++i) {
-			if (def_choice[i] != 0) 
+	} else if (cfg.size() != 0) {        // DO NOT edit the value of temp! will be used for config
+		for (int i=0; i<cfg.size(); ++i) {
+			if (cfg[i] != 0) 
 				all_zero = false;
 		}
 		if (all_zero) {
@@ -44,12 +48,12 @@ void Writefile::write(string filename, vector<int> def_choice) {
 			config_file.close();
 		}
 		else
-			vals = def_choice;
-
+			vals = cfg;
+			
 		file.open(filename);
 		for (int i = 0; i < cnt; ++i) {
 			mt19937 rng(rand());
-			uniform_int_distribution<mt19937::result_type> dist6(lo, hi);
+			uniform_int_distribution<int> dist6(lo, hi);
 			file << dist6(rng) << " ";
 		}
 		file.close();
@@ -63,6 +67,9 @@ void Writefile::write(string filename, vector<int> def_choice) {
 			for (int i = 0; i < cnt; ++i)
 				file << i << " ";
 		} else if (mode == 2) {
+			for (int i = 0; i < cnt; ++i)
+				file << cnt-i << " ";
+		} else if (mode == 3) {
 			cout << ">>> Input lower and upper bound, separate with \'enter\': ";
 			cin >> lo >> hi;
 
@@ -92,6 +99,7 @@ string Writefile::writefile(vector<int> mode) {
 }
 
 void Writefile::writefiledefaultdir(string filename, vector<int> mode) {
+	cout << "maybe here?";
 	write(filename, mode);
 	return;
 }

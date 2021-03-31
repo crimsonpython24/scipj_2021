@@ -1,50 +1,36 @@
 {
 	"0": 
 	[
-		{"mode": "single", "algorithm": "insertion"},
+		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":10000, "mem":2, "time":190042}
-		]
+			{"items":10000, "mem":2, "time":201001}
+			,{"items":10000, "mem":2, "time":192414}
+			,{"items":10000, "mem":2, "time":154756}
+			,{"items":10000, "mem":2, "time":159239}
+			,{"items":10000, "mem":2, "time":154271}
+			,{"items":10000, "mem":2, "time":234929}
+			,{"items":10000, "mem":2, "time":154274}
+			,{"items":10000, "mem":2, "time":172221}
+			,{"items":10000, "mem":2, "time":177818}
+			,{"items":10000, "mem":2, "time":154394}
+		],
+		{"items": 10000, "avg time (microseconds)": 175531, "std dev": 835515654.741403}
 	]
 	,"1": 
 	[
-		{"mode": "single", "algorithm": "insertion"},
-		[
-			{"items":10, "mem":2, "time":0}
-		]
-	]
-	,"2": 
-	[
 		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
-			,{"items":10, "mem":2, "time":0}
+			{"items":48582, "mem":2, "time":5010416}
+			,{"items":49342, "mem":2, "time":5329827}
+			,{"items":21696, "mem":2, "time":1175480}
+			,{"items":27255, "mem":2, "time":2718121}
+			,{"items":22616, "mem":2, "time":1496960}
+			,{"items":36963, "mem":2, "time":4587575}
+			,{"items":47950, "mem":2, "time":7920997}
+			,{"items":60789, "mem":2, "time":12506366}
+			,{"items":22875, "mem":2, "time":1943748}
+			,{"items":37370, "mem":2, "time":5482623}
 		],
-		{"items": 10, "avg time (microseconds)": 0}
-	]
-	,"3": 
-	[
-		{"mode": "multi", "algorithm": "insertion"},
-		[
-			{"items":50000, "mem":2, "time":3315009}
-			,{"items":50000, "mem":2, "time":3535198}
-			,{"items":50000, "mem":2, "time":3520300}
-			,{"items":50000, "mem":2, "time":3377691}
-			,{"items":50000, "mem":2, "time":3424575}
-			,{"items":50000, "mem":2, "time":3397125}
-			,{"items":50000, "mem":2, "time":3405272}
-			,{"items":50000, "mem":2, "time":3468846}
-			,{"items":50000, "mem":2, "time":3492451}
-			,{"items":50000, "mem":2, "time":3488497}
-		],
-		{"items": 50000, "avg time (microseconds)": 3442496}
+		{"items": 37543, "avg time (microseconds)": 4817211, "std dev": 1657.471192}
 	]
 }

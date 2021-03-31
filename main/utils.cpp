@@ -2,7 +2,25 @@
 #include "utils.h"
 #include "../insertion/insertion.h"
 #include "../selection/selection.h"
+#include "readfile.h"
 using namespace std;
+
+
+template<typename T> T variance(const vector<T> &vec) {
+    const size_t sz = vec.size();
+    if (sz == 1)
+        return 0.0;
+
+    // Calculate the mean
+    const T mean = accumulate(vec.begin(), vec.end(), 0.0) / sz;
+
+    // Now calculate the variance
+    auto variance_func = [&mean, &sz](T accumulator, const T& val) {
+        return accumulator + ((val - mean)*(val - mean) / (sz - 1));
+    };
+
+    return accumulate(vec.begin(), vec.end(), 0.0, variance_func);
+}
 
 map<string, long> Utils::choose_algo(string in_dir, string algoname, int multi, int cnt, Insertion& ins, Selection& slc) {
 	map<string, long> m1;
@@ -50,13 +68,16 @@ pair<int, int> Utils::find_pair_avg(vector<pair<int, int>> vec) {
 }
 
 void Utils::write_file_end(int multicnt, ofstream& file, pair<int, int> temp4, Utils& uts, vector<pair<int, int>> nums) {
+	Readfile rdf;
+	vector<int> vec0 = rdf.readfile("..\\txt_files\\temp.txt");
+	vector<double> vec(vec0.begin(), vec0.end());
 	if (multicnt == 1) {
 		file << "\t\t]\n\t]" << endl; 
 		cout << endl;
 	} else {
 		temp4 = uts.find_pair_avg(nums);
 		file << "\t\t]," << endl;
-		file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + "}";
+		file << "\t\t{\"items\": " + to_string(temp4.first) + ", \"avg time (microseconds)\": " + to_string(temp4.second) + ", \"std dev\": " + to_string(variance(vec)) + "}";
 		file << "\n\t]" << endl;
 		cout << endl;	
 	}
