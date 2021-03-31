@@ -109,7 +109,6 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 									"\t\t{\"mode\": \"multi\", \"algorithm\": \"" + algoname + "\"},\n\t\t[";
 			file << temp2 << endl;
 			nums = {};
-			cout << multicnt << " " << newin << endl;
 			for (int i = 1; i <= multicnt; ++i) {
 				if (uts.check_yes(newin)) {
 					wrf.writefiledefaultdir(dir_name, config);
@@ -118,7 +117,6 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 					m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
 				}
 				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
-				cout << "not here?";
 				uts.json_parse_child(i, file, m1);
 			}
 			uts.write_file_end(multicnt, file, temp4, uts, nums);

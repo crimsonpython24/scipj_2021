@@ -18,7 +18,7 @@ void Writefile::write(string filename, vector<int> cfg) {
 
 	if (cfg.size() == 0) {
 		cout << ">>> Menu: " << endl;
-		cout << "      * 1: linear\n      * 2: reverse linear      * 3: random\n";
+		cout << "      * 1: linear\n      * 2: reverse linear\n      * 3: random\n";
 		cout << "    \"-1\" to load config and \"q\" to quit\n(input) ";
 		cin >> temp;
 	}
@@ -85,7 +85,7 @@ void Writefile::write(string filename, vector<int> cfg) {
 	ofstream out((filename.substr(0, filename.size()-4) + "_log.txt"), ios_base::app);
 	auto end = chrono::system_clock::now();
     std::time_t end_time = chrono::system_clock::to_time_t(end);
-	out << ctime(&end_time) << temp << " " << cnt << " " << lo << " " << hi << endl;
+	out << ctime(&end_time) << mode << " " << cnt << " " << lo << " " << hi << endl;
 	out.close();
 
 	return;
@@ -99,7 +99,6 @@ string Writefile::writefile(vector<int> mode) {
 }
 
 void Writefile::writefiledefaultdir(string filename, vector<int> mode) {
-	cout << "maybe here?";
 	write(filename, mode);
 	return;
 }

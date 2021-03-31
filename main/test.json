@@ -3,34 +3,33 @@
 	[
 		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":10000, "mem":2, "time":201001}
-			,{"items":10000, "mem":2, "time":192414}
-			,{"items":10000, "mem":2, "time":154756}
-			,{"items":10000, "mem":2, "time":159239}
-			,{"items":10000, "mem":2, "time":154271}
-			,{"items":10000, "mem":2, "time":234929}
-			,{"items":10000, "mem":2, "time":154274}
-			,{"items":10000, "mem":2, "time":172221}
-			,{"items":10000, "mem":2, "time":177818}
-			,{"items":10000, "mem":2, "time":154394}
+			{"items":10000, "mem":2, "time":220305}
+			,{"items":10000, "mem":2, "time":240241}
+			,{"items":10000, "mem":2, "time":171480}
+			,{"items":10000, "mem":2, "time":164966}
+			,{"items":10000, "mem":2, "time":157624}
+			,{"items":10000, "mem":2, "time":151360}
+			,{"items":10000, "mem":2, "time":160105}
+			,{"items":10000, "mem":2, "time":155381}
+			,{"items":10000, "mem":2, "time":196035}
+			,{"items":10000, "mem":2, "time":169976}
 		],
-		{"items": 10000, "avg time (microseconds)": 175531, "std dev": 835515654.741403}
+		{"items": 10000, "avg time (microseconds)": 178747, "std dev": 844991617.278594}
 	]
 	,"1": 
 	[
 		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":48582, "mem":2, "time":5010416}
-			,{"items":49342, "mem":2, "time":5329827}
-			,{"items":21696, "mem":2, "time":1175480}
-			,{"items":27255, "mem":2, "time":2718121}
-			,{"items":22616, "mem":2, "time":1496960}
-			,{"items":36963, "mem":2, "time":4587575}
-			,{"items":47950, "mem":2, "time":7920997}
-			,{"items":60789, "mem":2, "time":12506366}
-			,{"items":22875, "mem":2, "time":1943748}
-			,{"items":37370, "mem":2, "time":5482623}
+			{"items":20000, "mem":2, "time":657088}
+			,{"items":30000, "mem":2, "time":3210122}
 		],
-		{"items": 37543, "avg time (microseconds)": 4817211, "std dev": 1657.471192}
+		{"items": 25000, "avg time (microseconds)": 1933605, "std dev": 75002500.000000}
+	]
+	,"2": 
+	[
+		{"mode": "single", "algorithm": "insertion"},
+		[
+			{"items":30000, "mem":2, "time":2942466}
+		]
 	]
 }
