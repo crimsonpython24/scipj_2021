@@ -114,12 +114,12 @@ void Writefile::writeresult(string filename, vector<int> nums) {
 	return;
 }
 
-void Writefile::write_all_results(string out_dirc, vector<int> vec, int multi, long long int dur, int cnt) {
+void Writefile::write_all_results(string out_dirc, vector<int> vec, int multi, long long int dur, int cnt, string final_str) {
 	Writefile wrf;
 	string pr;
 	wrf.writeresult(out_dirc, vec);
-	pr = (multi != 1) ? ">>> TIME TAKEN " + to_string(dur) + "ms USING insertion (reg) [" + to_string(cnt) + "]" :
-	      ">>> TIME TAKEN " + to_string(dur) + "ms USING insertion (reg)";
+	pr = (multi != 1) ? ">>> TIME TAKEN " + to_string(dur) + " microseconds USING insertion (reg) [" + to_string(cnt) + "]" :
+	      ">>> TIME TAKEN " + to_string(dur) + " microseconds USING " + final_str + "\n";
 	cout << pr << endl;
 	return;
 }

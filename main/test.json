@@ -3,52 +3,18 @@
 	[
 		{"mode": "multi", "algorithm": "insertion"},
 		[
-			{"items":51332, "mem":2, "time":4953097}
-			,{"items":46123, "mem":2, "time":4103735}
-			,{"items":52054, "mem":2, "time":4804296}
-			,{"items":43911, "mem":2, "time":3680549}
-			,{"items":59510, "mem":2, "time":6406071}
-			,{"items":25702, "mem":2, "time":1238501}
-			,{"items":32663, "mem":2, "time":2690255}
-			,{"items":34812, "mem":2, "time":2120974}
-			,{"items":71667, "mem":2, "time":11072510}
-			,{"items":48672, "mem":2, "time":5427490}
-			,{"items":56259, "mem":2, "time":7208082}
-			,{"items":34149, "mem":2, "time":2628508}
-			,{"items":48348, "mem":2, "time":4793658}
-			,{"items":73136, "mem":2, "time":10751292}
-			,{"items":25749, "mem":2, "time":1281503}
-			,{"items":39908, "mem":2, "time":3199738}
-			,{"items":74347, "mem":2, "time":11443444}
-			,{"items":24090, "mem":2, "time":1164742}
-			,{"items":44522, "mem":2, "time":3903942}
-			,{"items":58305, "mem":2, "time":7449635}
-			,{"items":72222, "mem":2, "time":10359518}
-			,{"items":57455, "mem":2, "time":9474753}
-			,{"items":35882, "mem":2, "time":4685628}
-			,{"items":28288, "mem":2, "time":2649991}
-			,{"items":72218, "mem":2, "time":18544181}
-			,{"items":34097, "mem":2, "time":4158361}
-			,{"items":49892, "mem":2, "time":9004178}
-			,{"items":50589, "mem":2, "time":9269258}
-			,{"items":23892, "mem":2, "time":2012201}
-			,{"items":53639, "mem":2, "time":10279503}
-			,{"items":33253, "mem":2, "time":3959222}
-			,{"items":72121, "mem":2, "time":19099340}
-			,{"items":51188, "mem":2, "time":8912991}
-			,{"items":38324, "mem":2, "time":2637244}
-			,{"items":29926, "mem":2, "time":2143512}
+			{"items":37890, "mem":0, "time":1958114}
+			,{"items":37890, "mem":0, "time":2070563}
+			,{"items":37890, "mem":0, "time":2028726}
+			,{"items":37890, "mem":0, "time":2063253}
+			,{"items":37890, "mem":0, "time":2722205}
+			,{"items":37890, "mem":0, "time":2300951}
+			,{"items":37890, "mem":0, "time":2564826}
+			,{"items":37890, "mem":0, "time":2256956}
+			,{"items":37890, "mem":0, "time":2491165}
+			,{"items":37890, "mem":0, "time":2267089}
 		],
-		{"mode": -1, "cnt": 29926, "lo": 100, "hi": 150},
-		{"items": 47092, "avg time (microseconds)": 6214625, "std dev": 217.329731}
-	]
-	,"1": 
-	[
-		{"mode": "single", "algorithm": "insertion"},
-		[
-			{"items":40345, "mem":2, "time":6424587}
-		],
-		{"mode": 2, "cnt": 40345, "lo": 0, "hi": 0}
-
+		{"mode": -1, "cnt": -1, "lo": -1, "hi": -1},
+		{"items": 37890, "avg time (microseconds)": 2272384, "std dev": 734901.241390}
 	]
 }

@@ -33,7 +33,7 @@ map<string, long> Selection::selection(string dirc, string out_dirc, int multi, 
 	auto dur = duration_cast<microseconds>(end-start);
 	
 	PROCESS_MEMORY_COUNTERS_EX pmc;
-	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt);
+	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt, "insertion (recur)");
 
 	map<string, long> m1 = {{"mem", pmc.WorkingSetSize}, {"time", dur.count() }, {"items", vec.size()}};
 	return m1;

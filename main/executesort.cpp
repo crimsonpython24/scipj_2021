@@ -28,7 +28,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 
 		if (uts.check_yes(temp)) {
 			message_input(">>> How many times to run? (positive whole number) ", multicnt);
-			message_input(">>> Change list each time? Must write a new file after every run (y/N) ", temp2);
+			message_input(">>> Manually create a new file each time? (y/N) ", temp2);
 			if (uts.check_yes(temp2))
 				multirand = true;
 			prl;

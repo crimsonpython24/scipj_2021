@@ -4,8 +4,37 @@
 #include "insertion.h"
 #include "../main/readfile.h"
 #include "../main/writefile.h"
+#include "../main/judge.h"
 using namespace std;
 using namespace std::chrono;
+
+void ins_recur(vector<int>& arr, int n) {
+	cout << "one time here " << to_string(n) << endl;
+	// base case
+	if (n <= 1)
+		return;
+
+	// sort all except for the last element
+	ins_recur(arr, n-1);
+
+	// insert last element at its correct position in array
+	int last = arr[n - 1];
+	int k = n - 2;
+
+	// move elements to one position ahead of its current (if satisfy)
+	while (k >= 0 && arr[k] > last) {
+		arr[k + 1] = arr[k];
+		--k;
+	}
+	arr[k + 1] = last;
+}
+
+void move_element(int& j, vector<int>& vec, int key) {
+	while (j >= 0 && vec[j] > key) {
+		vec[j + 1] = vec[j];
+		--j;
+	}
+}
 
 map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi, int cnt) {
 	Readfile rdf;
@@ -22,6 +51,8 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 	for (i = 1; i < vec.size(); ++i) {
 		key = vec[i];
 		j = i - 1;
+
+		// move each element of index j to its sorted position
 		while (j >= 0 && vec[j] > key) {
 			vec[j + 1] = vec[j];
 			--j;
@@ -32,18 +63,76 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);
 	
-	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt);
+	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt, "insertion (reg)");
 	PROCESS_MEMORY_COUNTERS_EX pmc;
 
 	map<string, long> m1 = {{"mem", pmc.WorkingSetSize}, {"time", dur.count() }, {"items", vec.size()}};
 	return m1;
 }
 
+map<string, long>  Insertion::insertion_recur(string dirc, string out_dirc, int multi, int cnt) {
+	Readfile rdf;
+	Writefile wrf;
+    vector<int> vec = rdf.readfile(dirc);
+
+	if (multi == 1)
+		cout << "\n>>> running..." << endl;
+	auto start = high_resolution_clock::now(); // start
+
+	// main sorting algo
+	ins_recur(vec, vec.size());
+
+	auto end = high_resolution_clock::now(); // end
+	auto dur = duration_cast<microseconds>(end-start);
+	
+	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt, "insertion (recur)");
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+
+	map<string, long> m1 = {{"mem", pmc.WorkingSetSize}, {"time", dur.count() }, {"items", vec.size()}};
+	return m1;
+}
+
+map<string, long>  Insertion::insertion_modular(string dirc, string out_dirc, int multi, int cnt) {
+	Readfile rdf;
+	Writefile wrf;
+    vector<int> vec = rdf.readfile(dirc);
+
+	if (multi == 1)
+		cout << "\n>>> running..." << endl;
+	auto start = high_resolution_clock::now(); // start
+
+	// main sorting algo
+	int i, j;
+	int key;
+	for (i = 1; i < vec.size(); ++i) {
+		key = vec[i];
+		j = i - 1;
+
+		// move each element of index j to its sorted position
+		move_element(j, vec, key);
+		vec[j + 1] = key;
+	}
+
+	auto end = high_resolution_clock::now(); // end
+	auto dur = duration_cast<microseconds>(end-start);
+	
+	wrf.write_all_results(out_dirc, vec, multi, dur.count(), cnt, "insertion (mod)");
+	PROCESS_MEMORY_COUNTERS_EX pmc;
+
+	map<string, long> m1 = {{"mem", pmc.WorkingSetSize}, {"time", dur.count() }, {"items", vec.size()}};
+	return m1;
+}
 
 // FOR TESTING ONLY
 
-// int main() {
-// 	Insertion ins;
-// 	ins.insertion("");
-// 	return 0;
-// }
+int main() {
+	Insertion ins;
+	Judge jdg;
+	ins.insertion("temp.txt", "out.txt", 1, 0); // localized test files
+	cout << jdg.judge("temp.txt", "out.txt") << endl;
+	ins.insertion_recur("temp.txt", "out.txt", 1, 0);
+	cout << jdg.judge("temp.txt", "out.txt") << endl;
+	ins.insertion_modular("temp.txt", "out.txt", 1, 0);
+	cout << jdg.judge("temp.txt", "out.txt") << endl;
+	return 0;
+}

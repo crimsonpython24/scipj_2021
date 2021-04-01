@@ -13,7 +13,7 @@ class Writefile {
         pair<string, vector<int>> writefile(vector<int>);
         vector<int> writefiledefaultdir(string, vector<int>);
         void writeresult(string, vector<int>);
-        void write_all_results(string, vector<int>, int, long long int, int);
+        void write_all_results(string, vector<int>, int, long long int, int, string);
 };
 
 #endif 
