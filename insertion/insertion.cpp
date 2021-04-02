@@ -8,14 +8,13 @@
 using namespace std;
 using namespace std::chrono;
 
-void ins_recur(vector<int>& arr, int n) {
-	cout << "one time here " << to_string(n) << endl;
+unsigned ins_recur(vector<int>& arr, int n, unsigned int a) {
 	// base case
 	if (n <= 1)
-		return;
+		return a;
 
 	// sort all except for the last element
-	ins_recur(arr, n-1);
+	ins_recur(arr, n-1, n*a);
 
 	// insert last element at its correct position in array
 	int last = arr[n - 1];
@@ -27,6 +26,10 @@ void ins_recur(vector<int>& arr, int n) {
 		--k;
 	}
 	arr[k + 1] = last;
+}
+
+unsigned int tail_recur(vector<int>& arr, unsigned int n) {
+	return ins_recur(arr, n, 1);
 }
 
 void move_element(int& j, vector<int>& vec, int key) {
@@ -80,7 +83,7 @@ map<string, long>  Insertion::insertion_recur(string dirc, string out_dirc, int 
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	ins_recur(vec, vec.size());
+	tail_recur(vec, vec.size());
 
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);

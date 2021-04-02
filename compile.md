@@ -17,7 +17,7 @@ g++ -Wall -pedantic executesort.cpp "..\insertion\insertion.cpp" "..\selection\s
 
 Compiling individual files
 ```bash
-g++ insertion.cpp "..\main\writefile.cpp" "..\main\readfile.cpp" && a.exe 
+g++ insertion.cpp "..\main\writefile.cpp" "..\main\readfile.cpp" "..\main\judge.cpp" && a.exe 
 ```
 
 ### Miscellaneous
