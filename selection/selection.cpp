@@ -12,26 +12,26 @@ int find_min(vector<int> vec, int i, int j) {
     if (i == j)
         return i;
   
-    // Find minimum of remaining elements
+    // Find min of the remaining nums
     int k = find_min(vec, i + 1, j);
   
-    // Return minimum of current and remaining.
+    // Return the absolute min
     return (vec[i] < vec[k]) ? i : k;
 }
 
 unsigned sel_recur(vector<int>& arr, int n, int idx, unsigned int a) {
-	// Return when starting and size are same
+	// Base case
     if (idx == n)
        return a;
   
-    // calling minimum index function for minimum index
-    int k = find_min(arr, idx, n-1);
-  
-    // Swapping when index nd minimum index are not same
+    // Find the min
+	int k = find_min(arr, idx, n-1);
+	
+    // Swapping if two index are not same (not min)
     if (k != idx)	
        swap(arr[k], arr[idx]);
   
-    // Recursively calling selection sort function
+    // Recursive call
     sel_recur(arr, n, idx + 1, a);
 }
 
@@ -57,9 +57,6 @@ map<string, long> Selection::selection(string dirc, string out_dirc, int multi, 
             if (vec[j] < vec[min])
                 min = j;
   
-        // int temp = *(&vec[min]);
-        // *(&vec[min]) = *(&vec[i]);
-        // *(&vec[i]) = temp;
 		swap(vec[min], vec[i]);
     }
 	auto end = high_resolution_clock::now(); // end
@@ -113,9 +110,6 @@ map<string, long> Selection::selection_modular(string dirc, string out_dirc, int
             if (vec[j] < vec[min])
                 min = j;
   
-        // int temp = *(&vec[min]);
-        // *(&vec[min]) = *(&vec[i]);
-        // *(&vec[i]) = temp;
 		swap(vec[min], vec[i]);
     }
 	auto end = high_resolution_clock::now(); // end
