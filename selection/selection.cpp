@@ -8,6 +8,8 @@
 using namespace std;
 using namespace std::chrono;
 
+#define prep(multi) Readfile rdf; Writefile wrf; if (multi == 1) cout << "\n>>> running..." << endl
+
 int find_min(vector<int> vec, int i, int j) {
     if (i == j)
         return i;
@@ -35,17 +37,14 @@ unsigned sel_recur(vector<int>& arr, int n, int idx, unsigned int a) {
     sel_recur(arr, n, idx + 1, a);
 }
 
-unsigned int tail_recur(vector<int>& arr, unsigned int n) {
+unsigned int tail_recur_sel(vector<int>& arr, unsigned int n) {
 	return sel_recur(arr, n, 0, 1);
 }
 
 map<string, long> Selection::selection(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
@@ -71,16 +70,13 @@ map<string, long> Selection::selection(string dirc, string out_dirc, int multi, 
 
 
 map<string, long> Selection::selection_recur(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	tail_recur(vec, vec.size());
+	tail_recur_sel(vec, vec.size());
 
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);
@@ -93,12 +89,9 @@ map<string, long> Selection::selection_recur(string dirc, string out_dirc, int m
 }
 
 map<string, long> Selection::selection_modular(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo

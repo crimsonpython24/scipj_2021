@@ -8,6 +8,8 @@
 using namespace std;
 using namespace std::chrono;
 
+#define prep(multi) Readfile rdf; Writefile wrf; if (multi == 1) cout << "\n>>> running..." << endl
+
 unsigned ins_recur(vector<int>& arr, int n, unsigned int a) {
 	// base case
 	if (n <= 1)
@@ -28,7 +30,7 @@ unsigned ins_recur(vector<int>& arr, int n, unsigned int a) {
 	arr[k + 1] = last;
 }
 
-unsigned int tail_recur(vector<int>& arr, unsigned int n) {
+unsigned int tail_recur_ins(vector<int>& arr, unsigned int n) {
 	return ins_recur(arr, n, 1);
 }
 
@@ -40,12 +42,9 @@ void move_element(int& j, vector<int>& vec, int key) {
 }
 
 map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
@@ -74,16 +73,13 @@ map<string, long>  Insertion::insertion(string dirc, string out_dirc, int multi,
 }
 
 map<string, long>  Insertion::insertion_recur(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	tail_recur(vec, vec.size());
+	tail_recur_ins(vec, vec.size());
 
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);
@@ -96,12 +92,9 @@ map<string, long>  Insertion::insertion_recur(string dirc, string out_dirc, int 
 }
 
 map<string, long>  Insertion::insertion_modular(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
@@ -128,14 +121,14 @@ map<string, long>  Insertion::insertion_modular(string dirc, string out_dirc, in
 
 // FOR TESTING ONLY
 
-int main() {
-	Insertion ins;
-	Judge jdg;
-	ins.insertion("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	ins.insertion_recur("temp.txt", "out.txt", 1, 0);
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	ins.insertion_modular("temp.txt", "out.txt", 1, 0);
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	return 0;
-}
+// int main() {
+// 	Insertion ins;
+// 	Judge jdg;
+// 	ins.insertion("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	ins.insertion_recur("temp.txt", "out.txt", 1, 0);
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	ins.insertion_modular("temp.txt", "out.txt", 1, 0);
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	return 0;
+// }

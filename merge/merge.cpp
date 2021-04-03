@@ -8,61 +8,42 @@
 using namespace std;
 using namespace std::chrono;
 
-// unsigned int tail_recur(vector<int>& arr, unsigned int n) {
-// 	return sel_recur(arr, n, 0, 1);
-// }
+#define prep(multi) Readfile rdf; Writefile wrf; if (multi == 1) cout << "\n>>> running..." << endl
 
-void merge(vector<int>& arr, int l, int m, int r)
-{
-    int n1 = m - l + 1;
-    int n2 = r - m;
+void merge(vector<int>& arr, int l, int m, int r) {
+    int a1 = m - l + 1;
+    int a2 = r - m;
  
-    // Create temp arrays
-    int L[n1], R[n2];
- 
-    // Copy data to temp arrays L[] and R[]
-    for (int i = 0; i < n1; i++)
+    // create temp array and copy data 
+    // YAY NO NEED TO WORRY ABOUT MOVING MEMORY
+    int L[a1], R[a2];
+    for (int i = 0; i < a1; ++i)
         L[i] = arr[l + i];
-    for (int j = 0; j < n2; j++)
+    for (int j = 0; j < a2; ++j)
         R[j] = arr[m + 1 + j];
  
-    // Merge the temp arrays back into arr[l..r]
- 
-    // Initial index of first subarray
-    int i = 0;
- 
-    // Initial index of second subarray
-    int j = 0;
- 
-    // Initial index of merged subarray
-    int k = l;
- 
-    while (i < n1 && j < n2) {
+    // Initial indices 
+    int i = 0, j = 0, k = l;
+    while (i < a1 && j < a2) {
         if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i++;
+            arr[k] = L[i]; i++;
         }
         else {
-            arr[k] = R[j];
-            j++;
+            arr[k] = R[j]; j++;
         }
         k++;
     }
  
-    // Copy the remaining elements of
-    // L[], if there are any
-    while (i < n1) {
+    // copy remaining numbers in l to main
+    while (i < a1) {
         arr[k] = L[i];
-        i++;
-        k++;
+        i++; k++;
     }
  
-    // Copy the remaining elements of
-    // R[], if there are any
-    while (j < n2) {
+    // copy remaining numbers in r to main
+    while (j < a2) {
         arr[k] = R[j];
-        j++;
-        k++;
+        j++; k++;
     }
 }
 
@@ -74,10 +55,6 @@ void mrg_recur(vector<int>& arr, int l, int r) {
     mrg_recur(arr, m+1, r);
     merge(arr, l, m, r);
 }
-
-// unsigned int tail_recur(vector<int>& arr, int l, int r) {
-// 	return mrg_recur(arr, l, r);
-// }
 
 void remove_ends(vector<int>& temp, vector<int>& arr, int& i, int& j, int& k, int mid, int to) {
 	while (i <= mid && j <= to)
@@ -96,12 +73,9 @@ void comb(vector<int>& arr, vector<int>& temp, int from, int mid, int to) {
 }
 
 map<string, long> Merge::merge(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
@@ -142,12 +116,9 @@ map<string, long> Merge::merge(string dirc, string out_dirc, int multi, int cnt)
 }
 
 map<string, long> Merge::merge_recur(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
@@ -164,12 +135,9 @@ map<string, long> Merge::merge_recur(string dirc, string out_dirc, int multi, in
 }
 
 map<string, long> Merge::merge_modular(string dirc, string out_dirc, int multi, int cnt) {
-	Readfile rdf;
-	Writefile wrf;
-    vector<int> vec = rdf.readfile(dirc);
+	prep(multi);
 
-	if (multi == 1)
-		cout << "\n>>> running..." << endl;
+    vector<int> vec = rdf.readfile(dirc);
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
@@ -199,14 +167,14 @@ map<string, long> Merge::merge_modular(string dirc, string out_dirc, int multi, 
 
 // FOR TESTING ONLY
 
-int main() {
-    Merge mrg;
-	Judge jdg;
-	mrg.merge("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	mrg.merge_recur("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	mrg.merge_modular("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	return 0;
-}
+// int main() {
+//     Merge mrg;
+// 	Judge jdg;
+// 	mrg.merge("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	mrg.merge_recur("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	mrg.merge_modular("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	return 0;
+// }
