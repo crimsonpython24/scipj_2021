@@ -72,6 +72,16 @@ void comb(vector<int>& arr, vector<int>& temp, int from, int mid, int to) {
 		arr[i] = temp[i];
 }
 
+void split(vector<int>& vec, vector<int>& temp1, int lo, int hi, int m) {
+    int mid, stop;
+    for (int i = lo; i < hi; i += 2*m) {
+        mid = i + m - 1;
+        stop = (i + 2*m - 1 < hi) ? i + 2*m - 1 : hi;
+
+        comb(vec, temp1, i, mid, stop);
+    }
+}
+
 map<string, long> Merge::merge(string dirc, string out_dirc, int multi, int cnt) {
 	prep(multi);
 
@@ -144,16 +154,9 @@ map<string, long> Merge::merge_modular(string dirc, string out_dirc, int multi, 
     const int lo = 0, hi = vec.size() - 1;
     int mid, stop;
     vector<int> temp1 = vec;
-    for (int m = 1; m <= hi - lo; m = 2*m) {
 
-        // all even iterations starting from 0
-        for (int i = lo; i < hi; i += 2*m) {
-            mid = i + m - 1;
-            stop = (i + 2*m - 1 < hi) ? i + 2*m - 1 : hi;
-
-            comb(vec, temp1, i, mid, stop);
-        }
-    }
+    for (int m = 1; m <= hi - lo; m = 2*m) 
+        split(vec, temp1, lo, hi, m);
 
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);

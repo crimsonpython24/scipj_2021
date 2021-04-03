@@ -21,15 +21,12 @@ unsigned bub_recur(vector<int>& arr, int n, unsigned int a) {
     if (n == 1)
         return a;
  
-    // One pass of bubble sort. After
-    // this pass, the largest element
-    // is moved (or bubbled) to end.
+    // One pass of bubble sort. After this pass, the largest element is moved (or bubbled) to end.
     for (int i = 0; i < n-1; ++i)
         if (arr[i] > arr[i+1])
             swap(arr[i], arr[i+1]);
  
-    // Largest element is fixed,
-    // recur for remaining array
+    // Largest element is fixed, recur for remaining array
     bub_recur(arr, n-1, n*a);
 }
 
@@ -132,14 +129,14 @@ map<string, long> Bubble::bubble_modular(string dirc, string out_dirc, int multi
 
 // FOR TESTING ONLY
 
-int main() {
-    Bubble bub;
-	Judge jdg;
-	bub.bubble("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	bub.bubble_recur("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	bub.bubble_modular("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	return 0;
-}
+// int main() {
+//     Bubble bub;
+// 	Judge jdg;
+// 	bub.bubble("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	bub.bubble_recur("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	bub.bubble_modular("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	return 0;
+// }
