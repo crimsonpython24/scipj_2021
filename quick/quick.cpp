@@ -157,14 +157,14 @@ map<string, long> Quick::quick_modular(string dirc, string out_dirc, int multi, 
 
 // FOR TESTING ONLY
 
-int main() {
-    Quick quk;
-	Judge jdg;
-	quk.quick("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	quk.quick_recur("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	quk.quick_modular("temp.txt", "out.txt", 1, 0); // localized test files
-	cout << jdg.judge("temp.txt", "out.txt") << endl;
-	return 0;
-}
+// int main() {
+//     Quick quk;
+// 	Judge jdg;
+// 	quk.quick("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	quk.quick_recur("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	quk.quick_modular("temp.txt", "out.txt", 1, 0); // localized test files
+// 	cout << jdg.judge("temp.txt", "out.txt") << endl;
+// 	return 0;
+// }

@@ -1,2 +1,20 @@
 {
+	"0": 
+	[
+		{"mode": "multi", "algorithm": "insertion"},
+		[
+			{"items":10000, "mem":32, "time":185054}
+			,{"items":10000, "mem":32, "time":199001}
+			,{"items":10000, "mem":32, "time":208053}
+			,{"items":10000, "mem":32, "time":216500}
+			,{"items":10000, "mem":32, "time":219000}
+			,{"items":10000, "mem":32, "time":218408}
+			,{"items":10000, "mem":32, "time":222997}
+			,{"items":10000, "mem":22, "time":223053}
+			,{"items":10000, "mem":22, "time":222459}
+			,{"items":10000, "mem":22, "time":221192}
+		],
+		{"mode": -1, "cnt": -1, "lo": -1, "hi": -1},
+		{"items": 10000, "avg time (microseconds)": 213571, "std dev": 837659854.311489}
+	]
 }

@@ -2,6 +2,9 @@
 #include "utils.h"
 #include "../insertion/insertion.h"
 #include "../selection/selection.h"
+#include "../merge/merge.h"
+#include "../quick/quick.h"
+#include "../bubble/bubble.h"
 #include "readfile.h"
 using namespace std;
 
@@ -22,12 +25,33 @@ template<typename T> T variance(const vector<T> &vec) {
     return accumulate(vec.begin(), vec.end(), 0.0, variance_func);
 }
 
-map<string, long> Utils::choose_algo(string in_dir, string algoname, int multi, int cnt, Insertion& ins, Selection& slc) {
+map<string, long> Utils::choose_algo(string in_dir, string algoname, int md, int multi, int cnt, Insertion& ins, Selection& slc, Merge& mrg, Quick& quk, Bubble& bub) {
 	map<string, long> m1;
 	string temp3;
 	temp3 = (in_dir.compare("") == 0) ? ("..\\txt_files\\temp.txt") : in_dir;
 
-	m1 = ins.insertion(temp3, "..\\txt_files\\out.txt", multi, cnt);
+	string out_dir = "..\\txt_files\\out.txt";
+	if (algoname.compare("insertion") == 0) {
+		if (md == 1) m1 = ins.insertion(temp3, out_dir, multi, cnt);
+		else if (md == 2) m1 = ins.insertion_recur(temp3, out_dir, multi, cnt);
+		else m1 = ins.insertion_modular(temp3, out_dir, multi, cnt);
+	} else if (algoname.compare("selection") == 0) {
+		if (md == 1) m1 = slc.selection(temp3, out_dir, multi, cnt);
+		else if (md == 2) m1 = slc.selection_recur(temp3, out_dir, multi, cnt);
+		else m1 = slc.selection_modular(temp3, out_dir, multi, cnt);
+	} else if (algoname.compare("merge") == 0) {
+		if (md == 1) m1 = mrg.merge(temp3, out_dir, multi, cnt);
+		else if (md == 2) m1 = mrg.merge_recur(temp3, out_dir, multi, cnt);
+		else m1 = mrg.merge_modular(temp3, out_dir, multi, cnt);
+	} else if (algoname.compare("quick") == 0) {
+		if (md == 1) m1 = quk.quick(temp3, out_dir, multi, cnt);
+		else if (md == 2) m1 = quk.quick_recur(temp3, out_dir, multi, cnt);
+		else m1 = quk.quick_modular(temp3, out_dir, multi, cnt);
+	} else { // bubble
+		if (md == 1) m1 = bub.bubble(temp3, out_dir, multi, cnt);
+		else if (md == 2) m1 = bub.bubble_recur(temp3, out_dir, multi, cnt);
+		else m1 = bub.bubble_modular(temp3, out_dir, multi, cnt);
+	}
 	return m1;
 }
 

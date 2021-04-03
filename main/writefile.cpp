@@ -118,7 +118,7 @@ void Writefile::write_all_results(string out_dirc, vector<int> vec, int multi, l
 	Writefile wrf;
 	string pr;
 	wrf.writeresult(out_dirc, vec);
-	pr = (multi != 1) ? ">>> TIME TAKEN " + to_string(dur) + " microseconds USING insertion (reg) [" + to_string(cnt) + "]" :
+	pr = (multi != 1) ? ">>> TIME TAKEN " + to_string(dur) + " microseconds USING " + final_str + " [" + to_string(cnt) + "]" :
 	      ">>> TIME TAKEN " + to_string(dur) + " microseconds USING " + final_str + "\n";
 	cout << pr << endl;
 	return;

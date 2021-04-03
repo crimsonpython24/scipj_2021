@@ -10,13 +10,13 @@ using namespace std::chrono;
 
 #define prep(multi) Readfile rdf; Writefile wrf; if (multi == 1) cout << "\n>>> running..." << endl
 
-unsigned ins_recur(vector<int>& arr, int n, unsigned int a) {
+void ins_recur(vector<int>& arr, int n) {
 	// base case
 	if (n <= 1)
-		return a;
+		return;
 
 	// sort all except for the last element
-	ins_recur(arr, n-1, n*a);
+	ins_recur(arr, n-1);
 
 	// insert last element at its correct position in array
 	int last = arr[n - 1];
@@ -28,10 +28,6 @@ unsigned ins_recur(vector<int>& arr, int n, unsigned int a) {
 		--k;
 	}
 	arr[k + 1] = last;
-}
-
-unsigned int tail_recur_ins(vector<int>& arr, unsigned int n) {
-	return ins_recur(arr, n, 1);
 }
 
 void move_element(int& j, vector<int>& vec, int key) {
@@ -79,7 +75,7 @@ map<string, long>  Insertion::insertion_recur(string dirc, string out_dirc, int 
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	tail_recur_ins(vec, vec.size());
+	ins_recur(vec, vec.size());
 
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);

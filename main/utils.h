@@ -6,12 +6,15 @@
 #include <bits/stdc++.h>
 #include "../insertion/insertion.h"
 #include "../selection/selection.h"
+#include "../merge/merge.h"
+#include "../quick/quick.h"
+#include "../bubble/bubble.h"
 using namespace std;
 
 
 class Utils {
     public:
-        map<string, long> choose_algo(string, string, int, int, Insertion&, Selection&);
+        map<string, long> choose_algo(string, string, int, int, int, Insertion&, Selection&, Merge&, Quick&, Bubble&);
         bool check_yes(string);
         bool in_array(string&, vector<string>&);
         string map_to_string(map<string, long>);

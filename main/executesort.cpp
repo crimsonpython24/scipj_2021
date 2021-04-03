@@ -4,19 +4,23 @@
 #include "utils.h"
 #include "../insertion/insertion.h"
 #include "../selection/selection.h"
+#include "../merge/merge.h"
+#include "../quick/quick.h"
+#include "../bubble/bubble.h"
 using namespace std;
 
 #define prl cout<<endl
 template <typename T> void message_input(string str1, T& into) {cout << str1; cin >> into;}
 vector<int> empty_vec = {};
 
-int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, ofstream& file, int& json_count) {
+int handle_sort_algo(string algoname, int md, string ind, bool check, bool empty_json, ofstream& file, int& json_count) {
 	string temp, temp2, dir_name, out_name, write_dir;
 	int v_result, cnt = 0, multicnt = 1;
 	bool multirand = false;
 	vector<pair<int, int>> nums = {}; pair<int, int> temp4 {}; pair<string, vector<int>> temp6;
 	map<string, long> m1;
-	Insertion ins; Selection slc; Writefile wrf; Judge jdg; Utils uts;
+	Insertion ins; Selection slc; Merge mrg; Quick quk; Bubble bub;
+	Writefile wrf; Judge jdg; Utils uts;
 
 	while (uts.check_yes(ind)) {
 		++cnt;
@@ -67,7 +71,7 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 					write_dir = "";
 				}
 
-				m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
+				m1 = uts.choose_algo(write_dir, algoname, md, multicnt, i, ins, slc, mrg, quk, bub);
 				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
 				uts.json_parse_child(i, file, m1);
 				
@@ -115,9 +119,9 @@ int handle_sort_algo(string algoname, string ind, bool check, bool empty_json, o
 			for (int i = 1; i <= multicnt; ++i) {
 				if (uts.check_yes(newin)) {
 					conf = wrf.writefiledefaultdir(dir_name, config);
-					m1 = uts.choose_algo("", algoname, multicnt, i, ins, slc);
+					m1 = uts.choose_algo("", algoname, md, multicnt, i, ins, slc, mrg, quk, bub);
 				} else {
-					m1 = uts.choose_algo(write_dir, algoname, multicnt, i, ins, slc);
+					m1 = uts.choose_algo(write_dir, algoname, md, multicnt, i, ins, slc, mrg, quk, bub);
 				}
 				temp4.first = m1.at("items"); temp4.second = m1.at("time"); nums.push_back(temp4);
 				uts.json_parse_child(i, file, m1);
@@ -198,7 +202,9 @@ int main() {
 			if (!uts.in_array(cmd, avbcommands))
 				cout << ">>> Please input an available command; type `help` for help\n" << endl;
 			else {
-				int x = handle_sort_algo(cmd, ind, check, empty_json, file, json_count);
+				int md;
+				message_input("    >>> Enter mode (1-normal, 2-recursive, 3-modular): ", md);
+				int x = handle_sort_algo(cmd, md, ind, check, empty_json, file, json_count);
 				empty_json = false;
 				usedcommands.push_back(cmd + " (x" + to_string(x) + ")");
 			}

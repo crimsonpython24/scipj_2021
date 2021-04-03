@@ -21,10 +21,10 @@ int find_min(vector<int> vec, int i, int j) {
     return (vec[i] < vec[k]) ? i : k;
 }
 
-unsigned sel_recur(vector<int>& arr, int n, int idx, unsigned int a) {
+void sel_recur(vector<int>& arr, int n, int idx = 0) {
 	// Base case
     if (idx == n)
-       return a;
+       return;
   
     // Find the min
 	int k = find_min(arr, idx, n-1);
@@ -34,11 +34,7 @@ unsigned sel_recur(vector<int>& arr, int n, int idx, unsigned int a) {
        swap(arr[k], arr[idx]);
   
     // Recursive call
-    sel_recur(arr, n, idx + 1, a);
-}
-
-unsigned int tail_recur_sel(vector<int>& arr, unsigned int n) {
-	return sel_recur(arr, n, 0, 1);
+    sel_recur(arr, n, idx + 1);
 }
 
 map<string, long> Selection::selection(string dirc, string out_dirc, int multi, int cnt) {
@@ -76,7 +72,7 @@ map<string, long> Selection::selection_recur(string dirc, string out_dirc, int m
 	auto start = high_resolution_clock::now(); // start
 
 	// main sorting algo
-	tail_recur_sel(vec, vec.size());
+	sel_recur(vec, vec.size());
 
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);

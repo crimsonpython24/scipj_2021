@@ -16,10 +16,10 @@ void swap_vecint(int&a, int& b) {
     b = temp;
 }
 
-unsigned bub_recur(vector<int>& arr, int n, unsigned int a) {
+void bub_recur(vector<int>& arr, int n) {
     // Base case
     if (n == 1)
-        return a;
+        return;
  
     // One pass of bubble sort. After this pass, the largest element is moved (or bubbled) to end.
     for (int i = 0; i < n-1; ++i)
@@ -27,11 +27,7 @@ unsigned bub_recur(vector<int>& arr, int n, unsigned int a) {
             swap(arr[i], arr[i+1]);
  
     // Largest element is fixed, recur for remaining array
-    bub_recur(arr, n-1, n*a);
-}
-
-unsigned int tail_recur_bub(vector<int>& arr, unsigned int n) {
-	return bub_recur(arr, n, 1);
+    bub_recur(arr, n-1);
 }
 
 map<string, long> Bubble::bubble(string dirc, string out_dirc, int multi, int cnt) {
@@ -80,7 +76,7 @@ map<string, long> Bubble::bubble_recur(string dirc, string out_dirc, int multi, 
 	// main sorting algo
 
     // optimize if array is already sirted
-	tail_recur_bub(vec, vec.size());
+	bub_recur(vec, vec.size());
 
 	auto end = high_resolution_clock::now(); // end
 	auto dur = duration_cast<microseconds>(end-start);
